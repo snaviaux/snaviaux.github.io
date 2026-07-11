@@ -2,7 +2,7 @@
 
 Portfolio site for Steven Naviaux: systems engineering across identity, cloud infrastructure, and the operational layer of AI. Plain HTML, CSS, and JavaScript with no build step, served by GitHub Pages.
 
-Live at [snaviaux.github.io](https://snaviaux.github.io/) until the `www.stevennaviaux.com` DNS cutover completes.
+Live at [www.stevennaviaux.com](https://www.stevennaviaux.com/).
 
 ## Pages
 
@@ -21,7 +21,7 @@ Live at [snaviaux.github.io](https://snaviaux.github.io/) until the `www.stevenn
 
 Pages are authored in a local `_review/` working area that is intentionally not committed. Edit the drafts there, run `scripts/promote-review.sh` (it asserts expected copy, strips review markers, rewrites canonical URLs, and refuses to ship placeholders under `PROMOTE_STRICT=1`), review the diff, then commit the promoted pages.
 
-`.nojekyll` disables Jekyll so files are served exactly as committed.
+`CNAME` pins the GitHub Pages custom domain; `.nojekyll` disables Jekyll so files are served exactly as committed.
 
 ## Local preview
 
