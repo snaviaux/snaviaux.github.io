@@ -1,37 +1,28 @@
-## Welcome to GitHub Pages
+# StevenNaviaux.com
 
-You can use the [editor on GitHub](https://github.com/snaviaux/snaviaux.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Static GitHub Pages site for `www.stevennaviaux.com`.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Files
 
-### Markdown
+- `index.html` - portfolio homepage: living topology hero, failure drill, vitals counters, footprint map, contact form.
+- `builds/index.html` - selected builds: four case studies with outcome lines.
+- `404.html` - incident-report style 404 page; GitHub Pages serves it on every missing path.
+- `assets/favicon.svg` - SN mark favicon, linked on every page.
+- `assets/headshot.png` - self-hosted headshot used by social link cards.
+- `assets/lab-*.png` - lab screenshots used on the project cards.
+- `assets/contact-form.js` - static lead-form handler with a configurable backend endpoint.
+- `scripts/promote-review.sh` - promotes the local review drafts to the public pages and fails loudly if any review marker survives.
+- `CNAME` - GitHub Pages custom domain.
+- `.nojekyll` - serves static files directly.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Editing
 
-```markdown
-Syntax highlighted code block
+Pages are authored in a local `_review/` working area that is intentionally not committed. Edit the drafts there, run `scripts/promote-review.sh`, review the diff, then commit the promoted pages.
 
-# Header 1
-## Header 2
-### Header 3
+## Preview
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```bash
+python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/snaviaux/snaviaux.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Then open `http://127.0.0.1:4173/`.
