@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <title>Steven Naviaux | Systems Craft</title>
+    <meta name="description" content="Steven Naviaux is a systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, and agent operations.">
+    <link rel="canonical" href="https://www.stevennaviaux.com/">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Steven Naviaux | Systems Craft">
+    <meta property="og:description" content="Steven Naviaux is a systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, and agent operations.">
+    <meta property="og:url" content="https://www.stevennaviaux.com/">
+    <meta property="og:image" content="https://www.stevennaviaux.com/assets/headshot.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Steven Naviaux | Systems Craft">
+    <meta name="twitter:description" content="Steven Naviaux is a systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, and agent operations.">
+    <meta name="twitter:image" content="https://www.stevennaviaux.com/assets/headshot.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=JetBrains+Mono:wght@400;600;700&display=swap">
+    <style>
+      :root {
+        --ink: #12141a;
+        --muted: #58616f;
+        --paper: #f6f4ef;
+        --panel: #ffffff;
+        --line: #d9d3c8;
+        --line-strong: #b9afa1;
+        --forest: #285b48;
+        --charcoal: #18201f;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        --shadow: 0 18px 45px rgba(18, 20, 26, 0.09);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.55;
+      }
+      a { color: inherit; }
+      :focus-visible { outline: 3px solid var(--forest); outline-offset: 3px; }
+      main[id], section[id] { scroll-margin-top: 96px; }
+
+      .ribbon {
+        background: var(--charcoal);
+        color: #f6f4ef;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        padding: 9px 24px;
+        letter-spacing: 0.04em;
+      }
+      .ribbon strong { color: #8fd4b4; }
+
+      /* pipeline spine */
+      .spine {
+        position: fixed; left: 26px; top: 50%; transform: translateY(-50%);
+        height: min(54vh, 480px); z-index: 40;
+        display: flex; flex-direction: column; justify-content: space-between;
+      }
+      .spine-line {
+        position: absolute; left: 5px; top: 0; bottom: 0; width: 2px;
+        background: var(--line-strong); border-radius: 2px;
+      }
+      .spine-fill {
+        position: absolute; left: 0; top: 0; width: 100%; height: 0;
+        background: var(--forest);
+        border-radius: 2px;
+        transition: height 0.15s linear;
+      }
+      .spine-node {
+        position: relative; display: flex; align-items: center; gap: 12px;
+        text-decoration: none; font-family: var(--mono); font-size: 12px; color: var(--muted);
+      }
+      .spine-node i {
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--paper); border: 2px solid var(--line-strong);
+        transition: background 0.3s, border-color 0.3s; flex: 0 0 auto;
+      }
+      .spine-node span { opacity: 0; transform: translateX(-6px); transition: opacity 0.25s, transform 0.25s; }
+      .spine-node:hover span, .spine-node:focus-visible span, .spine-node.active span { opacity: 1; transform: none; }
+      .spine-node.done i { background: var(--forest); border-color: var(--forest); }
+      .spine-node.done span::after { content: " ✓"; color: var(--forest); }
+      @media (max-width: 1180px) { .spine { display: none; } }
+
+      /* chaos drill + toast */
+      .chaos {
+        font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+        border: 1px dashed var(--line-strong); border-radius: 7px;
+        background: transparent; color: var(--muted);
+        padding: 9px 12px; cursor: pointer; text-align: left;
+        transition: color 0.2s, border-color 0.2s;
+      }
+      .chaos:hover:not(:disabled) { color: var(--forest); border-color: var(--forest); }
+      .chaos:disabled { cursor: wait; color: #c0392b; border-color: #c0392b; }
+      .status-row.down .dot { background: #c0392b; animation-duration: 0.6s; }
+      .status-row.down b { color: #c0392b; }
+      .toast {
+        position: fixed; right: 22px; bottom: 22px; z-index: 70;
+        background: var(--charcoal); color: #efece4;
+        font-family: var(--mono); font-size: 13px;
+        border-radius: 9px; padding: 14px 18px; box-shadow: var(--shadow);
+        opacity: 0; transform: translateY(14px); transition: opacity 0.3s, transform 0.3s;
+        pointer-events: none; max-width: 340px;
+      }
+      .toast.show { opacity: 1; transform: none; }
+      .toast b { color: #8fd4b4; }
+      .hint { font-family: var(--mono); font-size: 12px; color: var(--muted); margin: 16px 0 0; opacity: 0.8; }
+
+      header.site {
+        position: sticky; top: 0; z-index: 50;
+        display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        padding: 16px 40px;
+        background: rgba(246, 244, 239, 0.88);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 850; text-decoration: none; }
+      .brand-mark {
+        display: inline-grid; place-items: center; width: 38px; height: 38px;
+        border-radius: 9px; background: var(--charcoal); color: #fff;
+        font-family: var(--mono); font-size: 14px; font-weight: 700;
+      }
+      nav.links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14.5px; font-weight: 650; }
+      nav.links a { text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+      nav.links a:hover { opacity: 1; }
+
+      /* hero */
+      .hero {
+        position: relative;
+        min-height: 92vh;
+        display: grid;
+        align-items: center;
+        padding: 80px 40px 60px;
+        overflow: hidden;
+      }
+      #topology {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        display: block;
+      }
+      .hero-inner {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+        gap: 48px;
+        align-items: end;
+      }
+      .hero-copy {
+        background: linear-gradient(180deg, rgba(246,244,239,0.72), rgba(246,244,239,0.55));
+        backdrop-filter: blur(2px);
+        border-radius: 12px;
+        padding: 8px 12px 8px 0;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 13px; font-weight: 600;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--forest);
+        margin: 0 0 14px;
+      }
+      .hero h1 {
+        font-size: clamp(40px, 5.8vw, 74px);
+        line-height: 1.04;
+        letter-spacing: -0.02em;
+        margin: 0 0 22px;
+        font-weight: 880;
+      }
+      .hero h1 .accent { color: var(--forest); }
+      .hero-lede { font-size: 19px; color: var(--muted); max-width: 640px; margin: 0 0 28px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+      .button {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 44px; padding: 10px 18px;
+        border: 1px solid var(--line-strong); border-radius: 8px;
+        background: #fff; font-size: 15px; font-weight: 800; text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
+      }
+      .button:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--ink); }
+      .button-primary { background: var(--charcoal); border-color: var(--charcoal); color: #fff; }
+
+      .statusboard {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.9);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        display: grid;
+        gap: 12px;
+      }
+      .statusboard header {
+        all: unset;
+        display: flex; justify-content: space-between;
+        color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      }
+      .status-row { display: flex; justify-content: space-between; gap: 12px; border-top: 1px dashed var(--line); padding-top: 11px; }
+      .status-row b { font-weight: 700; }
+      .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2f9e6e; margin-right: 8px; animation: pulse 2.4s ease-in-out infinite; }
+      @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+      /* principles strip */
+      .principles {
+        max-width: 1200px; margin: 42px auto 0; position: relative;
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      }
+      .principles div {
+        background: rgba(255,255,255,0.86); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px;
+      }
+      .principles dt { font-weight: 850; font-size: 16px; margin-bottom: 6px; }
+      .principles dd { margin: 0; color: var(--muted); font-size: 14px; }
+
+      /* sections */
+      section.block { padding: 96px 40px; }
+      .inner { max-width: 1200px; margin: 0 auto; }
+      .section-head { max-width: 760px; margin-bottom: 44px; position: relative; }
+      .section-head h2 { font-size: clamp(30px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 16px; font-weight: 870; }
+      .section-head p { color: var(--muted); font-size: 17px; margin: 0; }
+      .band { background: #efece4; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+      .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .card {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 26px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+      .card h3 { margin: 14px 0 10px; font-size: 21px; line-height: 1.2; }
+      .card p { color: var(--muted); margin: 0; }
+      .kicker { font-family: var(--mono); font-weight: 700; color: var(--forest); font-size: 13px; }
+      .plabel {
+        display: inline-block; font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+        letter-spacing: 0.1em; text-transform: uppercase; color: var(--forest);
+        border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 10px; margin-bottom: 12px;
+      }
+      .shot { width: 100%; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 16px; }
+      .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 18px 0 0; padding: 0; }
+      .tags li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 10px; }
+
+      .writing-card {
+        display: grid; gap: 8px; text-decoration: none;
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 22px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .writing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+      .writing-card span { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.1em; }
+      .writing-card strong { font-size: 17px; line-height: 1.3; }
+      .writing-card small { color: var(--muted); font-size: 14px; }
+
+      .quiet-link { color: var(--forest); font-weight: 700; }
+
+      /* outcome lines */
+      .outcome {
+        font-family: var(--mono); font-size: 12.5px; color: var(--forest);
+        margin: 16px 0 0; padding-top: 12px; border-top: 1px dashed var(--line);
+      }
+      .outcome::before { content: "outcome · "; color: var(--muted); }
+
+      /* contact */
+      .contact { text-align: center; }
+      .contact .section-head { margin-left: auto; margin-right: auto; }
+      .contact-headshot {
+        display: block; width: 112px; height: 112px; margin: 0 auto 22px;
+        border-radius: 50%; border: 1px solid var(--line); box-shadow: var(--shadow);
+      }
+      .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+
+      footer.site {
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        border-top: 1px solid var(--line); padding: 28px 40px; font-size: 14px; color: var(--muted);
+      }
+
+      /* receipts counters */
+      .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+      .stat {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        padding: 24px 16px; text-align: center;
+      }
+      .stat b {
+        display: block; font-family: var(--mono); font-weight: 700;
+        font-size: clamp(28px, 3.2vw, 44px); letter-spacing: -0.02em;
+        color: var(--forest); margin-bottom: 6px;
+      }
+      .stat span { font-size: 13px; color: var(--muted); }
+
+      /* footprint map */
+      .map-wrap {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+        padding: 24px 20px 16px; overflow: hidden;
+      }
+      .map-svg { width: 100%; height: auto; display: block; }
+      .map-caption {
+        font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+        text-align: center; margin: 12px 0 4px;
+      }
+      .region-label {
+        font: 600 13px var(--mono); fill: rgba(88, 97, 111, 0.35);
+        letter-spacing: 0.3em; text-transform: uppercase;
+      }
+      .city-dot { fill: var(--forest); }
+      .city-halo {
+        fill: none; stroke: rgba(40, 91, 72, 0.4); stroke-width: 1.5;
+        transform-box: fill-box; transform-origin: center;
+        animation: halo 2.8s ease-out infinite;
+      }
+      @keyframes halo {
+        0% { transform: scale(0.5); opacity: 1; }
+        100% { transform: scale(2.1); opacity: 0; }
+      }
+      .city-label { font: 700 13px var(--mono); fill: var(--ink); }
+      .city-chip { font: 500 11px var(--mono); fill: var(--muted); }
+      .arc {
+        fill: none; stroke: rgba(40, 91, 72, 0.4); stroke-width: 1.5;
+        stroke-dasharray: 4 8; animation: dashmove 3s linear infinite;
+      }
+      @keyframes dashmove { to { stroke-dashoffset: -120; } }
+
+      /* section numerals */
+      .section-head::before {
+        content: attr(data-num);
+        position: absolute; top: -60px; left: -10px; z-index: -1;
+        font-family: var(--mono); font-weight: 700; line-height: 1;
+        font-size: clamp(90px, 11vw, 150px);
+        color: rgba(24, 32, 31, 0.055);
+        pointer-events: none;
+      }
+
+      /* nav underlines */
+      nav.links a { position: relative; }
+      nav.links a::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px;
+        background: var(--forest); transform: scaleX(0); transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+      nav.links a:hover::after, nav.links a:focus-visible::after { transform: scaleX(1); }
+
+      /* preloader */
+      .preloader {
+        position: fixed; inset: 0; z-index: 100;
+        background: var(--paper); display: none; place-items: center;
+        transition: opacity 0.4s ease;
+      }
+      .js .preloader { display: grid; }
+      .preloader.done { opacity: 0; pointer-events: none; }
+      .preloader pre { font-family: var(--mono); font-size: 13.5px; color: var(--muted); margin: 0; text-align: left; }
+      .preloader .ok { color: var(--forest); font-weight: 700; }
+
+      /* footer uptime */
+      footer.site .uptime { font-family: var(--mono); font-size: 12.5px; }
+
+      .skip-link {
+        position: absolute; left: 16px; top: 12px; z-index: 120;
+        transform: translateY(-200%);
+        border-radius: 6px; background: var(--ink); color: #ffffff;
+        padding: 10px 14px; text-decoration: none; font-weight: 700;
+      }
+      .skip-link:focus { transform: translateY(0); }
+
+      /* lead form */
+      .lead-form {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 34px auto 0; max-width: 760px; padding: 24px; text-align: left;
+      }
+      .lead-form label { display: grid; gap: 6px; font-size: 14px; font-weight: 750; }
+      .lead-form label.full { grid-column: 1 / -1; }
+      .lead-form input, .lead-form select, .lead-form textarea {
+        border: 1px solid var(--line-strong); border-radius: 7px;
+        padding: 10px 12px; font: inherit; background: #ffffff; color: var(--ink);
+        width: 100%; min-width: 0;
+      }
+      .lead-form label { min-width: 0; }
+      .lead-form textarea { resize: vertical; }
+      .lead-form .honeypot { position: absolute; left: -9999px; }
+      .lead-form button { grid-column: 1 / -1; justify-self: start; }
+      .form-status { grid-column: 1 / -1; font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin: 0; }
+
+      /* reveal on scroll (hidden state only applies once JS has confirmed itself via .js) */
+      .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .reveal.visible { opacity: 1; transform: none; }
+      .js .reveal-stagger > * { opacity: 0; transform: translateY(26px); transition: opacity 0.55s ease, transform 0.55s ease; }
+      .reveal-stagger.visible > * { opacity: 1; transform: none; }
+      .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
+      .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.16s; }
+      .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
+      .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
+      .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.4s; }
+
+      @media (max-width: 980px) {
+        .hero-inner { grid-template-columns: 1fr; align-items: start; }
+        .principles { grid-template-columns: repeat(2, 1fr); }
+        .grid3, .grid2 { grid-template-columns: repeat(2, 1fr); }
+        .stats { grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (max-width: 680px) {
+        header.site, section.block, footer.site { padding-left: 20px; padding-right: 20px; }
+        .hero { padding: 60px 20px 40px; }
+        .principles, .grid3, .grid2 { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: repeat(2, 1fr); }
+        .section-head::before { font-size: 80px; top: -44px; }
+        .lead-form { grid-template-columns: 1fr; }
+        main[id], section[id] { scroll-margin-top: 150px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
+        .hint { display: none; }
+        .preloader, .js .preloader { display: none; }
+        .city-halo, .arc, .dot { animation: none; }
+      }
+    </style>
+    <script src="assets/contact-form.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Steven Naviaux",
+        "jobTitle": "Systems Engineer",
+        "description": "Systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, agent operations.",
+        "url": "https://www.stevennaviaux.com/",
+        "image": "https://www.stevennaviaux.com/assets/headshot.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Denver",
+          "addressRegion": "CO",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/snaviaux/",
+          "https://github.com/snaviaux",
+          "https://steven.naviauxlab.com/"
+        ],
+        "knowsAbout": [
+          "Identity systems",
+          "Hybrid cloud",
+          "AI governance",
+          "Agent operations",
+          "Microsoft 365 Copilot",
+          "Kubernetes",
+          "GitOps",
+          "MCP",
+          "Technical writing"
+        ]
+      }
+    </script>
+  </head>
+  <body class="portfolio-page live-mode" data-site-state="live">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <div class="preloader" id="preloader" aria-hidden="true"><pre id="bootlog">mounting /lab</pre></div>
+    <nav class="spine" aria-label="Page progress">
+      <div class="spine-line"><div class="spine-fill"></div></div>
+      <a class="spine-node" href="#top" data-target="top"><i></i><span>start</span></a>
+      <a class="spine-node" href="#signal" data-target="signal"><i></i><span>signal</span></a>
+      <a class="spine-node" href="#lab" data-target="lab"><i></i><span>lab</span></a>
+      <a class="spine-node" href="#patterns" data-target="patterns"><i></i><span>failure modes</span></a>
+      <a class="spine-node" href="#footprint" data-target="footprint"><i></i><span>footprint</span></a>
+      <a class="spine-node" href="#writing" data-target="writing"><i></i><span>field notes</span></a>
+      <a class="spine-node" href="#contact" data-target="contact"><i></i><span>contact</span></a>
+    </nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <header class="site">
+      <a class="brand" href="#top"><span class="brand-mark">SN</span><span>Steven Naviaux</span></a>
+      <nav class="links" aria-label="Sections">
+        <a href="#signal">Signal</a>
+        <a href="#lab">Lab</a>
+        <a href="builds/">Builds</a>
+        <a href="#patterns">Failure modes</a>
+        <a href="#writing">Field notes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <canvas id="topology" aria-hidden="true"></canvas>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Systems engineer · Builder · Operator</p>
+            <h1 id="hero-title">I make messy systems easier to <span class="accent">understand, operate, and trust</span>.</h1>
+            <p class="hero-lede">
+              I'm an infrastructure and security engineer, and I believe the way you build things says something about who you are. By day I work identity, cloud, and the operational side of AI at a global financial firm. By night I run a Kubernetes homelab like it's production, and I write about the decisions behind it.
+            </p>
+            <div class="actions">
+              <a class="button button-primary" href="https://www.linkedin.com/in/snaviaux/">LinkedIn</a>
+              <a class="button" href="https://github.com/snaviaux">GitHub</a>
+              <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
+            </div>
+            <p class="hint">the background is live. move your cursor, click near a node</p>
+          </div>
+          <div class="statusboard" aria-label="Lab status board">
+            <header><span>lab / status</span><span id="clock">--:--</span></header>
+            <div class="status-row" id="clusterRow"><span><span class="dot"></span>cluster</span><b id="clusterState">nominal</b></div>
+            <div class="status-row"><span><span class="dot"></span>agents</span><b>12+ running</b></div>
+            <div class="status-row"><span><span class="dot"></span>gitops</span><b>300+ PRs merged</b></div>
+            <div class="status-row"><span><span class="dot"></span>ports forwarded</span><b>zero</b></div>
+            <div class="status-row"><span><span class="dot"></span>last incident</span><b id="lastIncident">documented</b></div>
+            <button class="chaos" id="chaosBtn" type="button">▸ run a failure drill</button>
+          </div>
+        </div>
+        <dl class="principles reveal-stagger" aria-label="Operating principles">
+          <div><dt>Boring wins</dt><dd>The best incident is the one nobody has to retell at 9 AM.</dd></div>
+          <div><dt>Access is policy</dt><dd>Who can do what is not admin trivia. It is the real org chart.</dd></div>
+          <div><dt>Automation needs brakes</dt><dd>A script is not done until the failure path is obvious.</dd></div>
+          <div><dt>The lab keeps me honest</dt><dd>Ideas sound better before they meet logs, disks, and time.</dd></div>
+        </dl>
+      </section>
+
+      <section class="block" id="signal">
+        <div class="inner">
+          <div class="section-head reveal" data-num="01">
+            <p class="eyebrow">Signal</p>
+            <h2>The work is systems engineering. The medium changes.</h2>
+            <p>Some days the system is an identity tenant. Some days it is a network closet. Some days it is an AI workflow that got ambitious overnight. The pattern is the same: reduce ambiguity, make ownership visible, and leave a map. There is a longer version of this philosophy on my blog; I call it <a class="quiet-link" href="https://steven.naviauxlab.com/about/">the Architect vs. the Slumlord</a>.</p>
+          </div>
+          <div class="grid3 reveal-stagger">
+            <article class="card">
+              <span class="kicker">01</span>
+              <h3>Identity as operating structure</h3>
+              <p>Access is not just a ticket queue. Roles, secrets, reviews, federation, and exceptions decide how work moves. Worth naming before it becomes folklore.</p>
+            </article>
+            <article class="card">
+              <span class="kicker">02</span>
+              <h3>AI, pilot to platform</h3>
+              <p>I have been the enterprise-AI integration seat at a global financial firm since 2024: the first Copilot proof of concept, then enablement, then agent governance, cost controls, and the data connectors that make it useful.</p>
+            </article>
+            <article class="card">
+              <span class="kicker">03</span>
+              <h3>Automation the next person can run</h3>
+              <p>Automation should save attention, not create work nobody can explain. The test is simple: can the next person operate it without a walkthrough from me?</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="receipts" aria-label="Vitals">
+        <div class="inner">
+          <p class="eyebrow reveal" style="margin-bottom: 22px;">The numbers</p>
+          <div class="stats reveal-stagger">
+            <div class="stat"><b data-count="9" data-suffix="+">0</b><span>years enterprise infra</span></div>
+            <div class="stat"><b data-count="99.9" data-decimals="1" data-suffix="%">0</b><span>availability operated</span></div>
+            <div class="stat"><b data-count="3000" data-suffix="+">0</b><span>endpoints managed</span></div>
+            <div class="stat"><b data-count="19">0</b><span>countries</span></div>
+            <div class="stat"><b data-count="3">0</b><span>continents supported</span></div>
+            <div class="stat"><b data-count="300" data-suffix="+">0</b><span>lab PRs merged</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block band" id="lab">
+        <div class="inner">
+          <div class="section-head reveal" data-num="02">
+            <p class="eyebrow">The lab</p>
+            <h2>The lab is where my claims have to run.</h2>
+            <p>These are working systems, not props: GitOps, encrypted secrets, backups, runbooks, and a written postmortem when something breaks in an interesting way. I keep the repositories private by design. If you want receipts, ask, and I will walk you through them.</p>
+          </div>
+          <div class="grid2 reveal-stagger">
+            <article class="card">
+              <img class="shot" src="assets/lab-infra.png" alt="Infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status.">
+              <span class="plabel">Home infrastructure</span>
+              <h3>Talos Kubernetes Homelab</h3>
+              <p>Immutable Talos Linux with no SSH surface, every change through Git (300+ merged pull requests), secrets encrypted in the repo, monitoring, backups, and public ingress with zero forwarded ports.</p>
+              <p class="outcome">300+ PRs of auditable change history · zero forwarded ports · restore drill passed</p>
+              <ul class="tags"><li>Kubernetes</li><li>Talos</li><li>GitOps</li><li>Secrets</li><li>Observability</li></ul>
+            </article>
+            <article class="card">
+              <span class="plabel">Agent operations</span>
+              <h3>OpenClaw</h3>
+              <p>More than a dozen agents on the open-source platform run as real infrastructure on my cluster: persistent workspaces, an execution policy with WIP caps, and Mission Control, the task-state dashboard I built as a sidecar. The demo is easy. The operating model is the product.</p>
+              <p class="outcome">a dozen-plus agents in daily operation · audited across six failure modes with cost + latency telemetry</p>
+              <ul class="tags"><li>Agents</li><li>Workspaces</li><li>MCP</li><li>Task state</li></ul>
+            </article>
+            <article class="card">
+              <img class="shot" src="assets/lab-triggers.png" alt="Mission Control trigger events view showing Life Hub intelligence signals and collector status.">
+              <span class="plabel">Personal intelligence</span>
+              <h3>Life Hub</h3>
+              <p>A personal operating picture run like a service: twenty-odd collectors on a cadence, personal baselines instead of hardcoded thresholds, and triggers that open action items. Nine AI advisors interpret the results, and their disagreements are usually the most useful signal.</p>
+              <p class="outcome">in daily use · advisor consensus auto-escalates to action items</p>
+              <ul class="tags"><li>Signals</li><li>Forecasts</li><li>Advisors</li></ul>
+            </article>
+            <article class="card">
+              <img class="shot" src="assets/lab-brain.png" alt="Semantic thought search interface with topic filters and search controls.">
+              <span class="plabel">Memory layer</span>
+              <h3>Life Hub Brain</h3>
+              <p>Durable context, semantic search, and AI-accessible memory on pgvector. It feeds a wider practice: 4,000+ interlinked notes operated by more than eighty custom Claude Code skills. Not a demo; it runs my week.</p>
+              <p class="outcome">4,000+ interlinked notes retrievable by agents over MCP · survived one full rebuild</p>
+              <ul class="tags"><li>Memory</li><li>Semantic search</li><li>MCP</li></ul>
+            </article>
+          </div>
+          <div class="actions reveal" style="margin-top: 28px;">
+            <a class="button button-primary" href="builds/">Read selected builds</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="patterns">
+        <div class="inner">
+          <div class="section-head reveal" data-num="03">
+            <p class="eyebrow">Failure modes</p>
+            <h2>Problems I keep collecting.</h2>
+            <p>I don't list employer names or confidential details here. What I can share is the shape of the work: the kinds of knots I keep getting asked to untie.</p>
+          </div>
+          <div class="grid3 reveal-stagger">
+            <article class="card"><span class="kicker">A</span><h3>The access maze</h3><p>People need in, controls need to hold, and nobody wants the exception path to become the real policy. I have run this maze for an enterprise tenant of nearly two thousand people.</p></article>
+            <article class="card"><span class="kicker">B</span><h3>The migration with receipts</h3><p>Moving the workload is the visible part. The real work is naming dependencies, costs, owners, rollback paths, with the FinOps wiring to prove what it cost afterward.</p></article>
+            <article class="card"><span class="kicker">C</span><h3>Where software meets walls</h3><p>The digital plan still has to survive the physical building. The record so far: offices on three continents, and about a hundred conference rooms.</p></article>
+            <article class="card"><span class="kicker">D</span><h3>The fleet without a hero</h3><p>3,000+ endpoints across 19 countries, paid for itself in documented automation savings, twice. Glamour is expensive when something breaks.</p></article>
+            <article class="card"><span class="kicker">E</span><h3>The agent that meets the regulator</h3><p>Data boundaries, third-party review, loss-prevention coverage, hard spend controls. Anyone can build a bot. Building one that survives a regulator is the job.</p></article>
+            <article class="card"><span class="kicker">F</span><h3>The incident afterlife</h3><p>The fix is not the finish line. Decided is not installed. Ambiguous ownership is deferred work dressed up as consensus.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block band" id="footprint">
+        <div class="inner">
+          <div class="section-head reveal" data-num="04">
+            <p class="eyebrow">Footprint</p>
+            <h2>The work ships to real buildings.</h2>
+            <p>The digital plan still has to survive the physical building. Here is where mine has survived, in broad strokes.</p>
+          </div>
+          <div class="map-wrap reveal">
+            <svg class="map-svg" viewBox="0 0 1000 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylized map of work supported across North America, Europe, and Asia">
+              <path class="arc" d="M200,190 Q265,120 330,185"/>
+              <path class="arc" d="M200,190 Q370,40 540,145"/>
+              <path class="arc" d="M200,190 Q515,-20 830,225"/>
+
+              <g class="city" transform="translate(200,190)">
+                <circle class="city-halo" r="10"/>
+                <circle class="city-dot" r="5.5"/>
+                <text class="city-label" x="-14" y="-8" text-anchor="end">denver · hub</text>
+                <text class="city-chip" x="-14" y="8" text-anchor="end">where the runbooks live</text>
+              </g>
+
+              <g class="city" transform="translate(330,185)">
+                <circle class="city-halo" r="8"/>
+                <circle class="city-dot" r="4.5"/>
+                <text class="city-label" x="14" y="-2">amer</text>
+                <text class="city-chip" x="14" y="14">campus networks · server rooms · office buildouts</text>
+              </g>
+              <circle class="city-dot" cx="305" cy="235" r="2.5" opacity="0.35"/>
+              <circle class="city-dot" cx="360" cy="150" r="2.5" opacity="0.35"/>
+              <circle class="city-dot" cx="295" cy="150" r="2.5" opacity="0.35"/>
+
+              <g class="city" transform="translate(540,145)">
+                <circle class="city-halo" r="8"/>
+                <circle class="city-dot" r="4.5"/>
+                <text class="city-label" x="14" y="-2">emea</text>
+                <text class="city-chip" x="14" y="14">smart building systems · meeting rooms</text>
+              </g>
+              <circle class="city-dot" cx="515" cy="195" r="2.5" opacity="0.35"/>
+              <circle class="city-dot" cx="575" cy="185" r="2.5" opacity="0.35"/>
+              <circle class="city-dot" cx="565" cy="105" r="2.5" opacity="0.35"/>
+
+              <g class="city" transform="translate(830,225)">
+                <circle class="city-halo" r="8"/>
+                <circle class="city-dot" r="4.5"/>
+                <text class="city-label" x="-14" y="-8" text-anchor="end">apac</text>
+                <text class="city-chip" x="-14" y="8" text-anchor="end">meeting room fleets · remote-hands coordination</text>
+              </g>
+              <circle class="city-dot" cx="800" cy="270" r="2.5" opacity="0.35"/>
+              <circle class="city-dot" cx="865" cy="180" r="2.5" opacity="0.35"/>
+            </svg>
+            <p class="map-caption">offices on three continents · about a hundred conference rooms · one operating model</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block band" id="writing">
+        <div class="inner">
+          <div class="section-head reveal" data-num="05">
+            <p class="eyebrow">Field notes</p>
+            <h2>Notes from the parts I had to learn by running them.</h2>
+            <p>I write about the systems I actually run. The long tail after launch is where a system either earns trust or loses it, and it's where most of my learning has come from.</p>
+          </div>
+          <div class="grid3 reveal-stagger">
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/i-built-9-ai-advisors-that-argue-about-my-life-data/"><span>AI systems</span><strong>I Built 9 AI Advisors That Argue About My Life Data</strong><small>What happens when a dashboard stops reporting and starts arguing.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-predict-not-just-report/"><span>Prediction</span><strong>Teaching My Dashboard to Predict, Not Just Report</strong><small>Making the dashboard earn its screen time.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-think-across-modules/"><span>Architecture</span><strong>Teaching My Dashboard to Think Across Modules</strong><small>The pattern is context sharing. The trap is pretending modules talk when they do not.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/shipping-fast-on-a-side-project-from-10-minute-ci-to-instant-deploys/"><span>Delivery</span><strong>From 10-Minute CI to Instant Deploys</strong><small>Less waiting, tighter feedback, fewer excuses.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/building-a-9-agent-ai-team-on-kubernetes-the-complete-guide/"><span>Agents</span><strong>Building a 9-Agent AI Team on Kubernetes</strong><small>Agent demos are cheap. Agent operations are where the work starts.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/"><span>Archive</span><strong>Read more at NaviauxLab</strong><small>The field notes live there.</small></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="block contact" id="contact">
+        <div class="inner">
+          <div class="section-head reveal" data-num="06">
+            <img class="contact-headshot" src="assets/headshot.png" alt="Steven Naviaux" width="112" height="112">
+            <p class="eyebrow">Contact</p>
+            <h2>Let's build something that holds.</h2>
+            <p>Hiring, a project, or just a hard problem to compare notes on: if it touches AI deployment in a regulated environment, identity plumbing, or platform operations that have to hold, I want to hear about it. Rough edges and half-formed questions welcome. And if you think I got something wrong on this site, tell me that too.</p>
+          </div>
+          <div class="contact-links reveal">
+            <a class="button button-primary" href="https://www.linkedin.com/in/snaviaux/">LinkedIn</a>
+            <a class="button" href="https://github.com/snaviaux">GitHub</a>
+            <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
+          </div>
+          <form
+            class="lead-form reveal"
+            data-contact-form
+            data-endpoint="https://formspree.io/f/REPLACE_WITH_FORM_ID"
+            action="https://formspree.io/f/REPLACE_WITH_FORM_ID"
+            method="post">
+            <input type="hidden" name="source" value="stevennaviaux.com portfolio">
+            <label>
+              <span>Name</span>
+              <input name="name" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" required>
+            </label>
+            <label class="full">
+              <span>Project type</span>
+              <select name="project_type" required>
+                <option value="">Pick one</option>
+                <option>Hiring or full-time role</option>
+                <option>AI deployment in a regulated environment</option>
+                <option>Identity or access engineering</option>
+                <option>Cloud or infrastructure review</option>
+                <option>Automation or agent operations</option>
+                <option>Writing, advising, or other</option>
+              </select>
+            </label>
+            <label class="full">
+              <span>What are you trying to fix?</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+            <label class="honeypot" aria-hidden="true">
+              <span>Leave this blank</span>
+              <input name="_gotcha" tabindex="-1" autocomplete="off">
+            </label>
+            <button class="button button-primary" type="submit">Send</button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site">
+      <p>Steven Naviaux · Denver, Colorado</p>
+      <p class="uptime"><span id="uptime">lab uptime: calculating</span> · forwarded ports: 0</p>
+      <p>Systems craft for identity, cloud, platform, and AI infrastructure.</p>
+    </footer>
+
+    <script>
+      (function () {
+        // watchdog: no matter what happens below, the loader dies and content shows
+        const killLoader = () => { const p = document.getElementById("preloader"); if (p) p.remove(); };
+        setTimeout(killLoader, 4000);
+        try {
+        document.documentElement.classList.add("js");
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const dpr = devicePixelRatio || 1;
+        const hasIO = "IntersectionObserver" in window;
+
+        // preloader (once per session; storage access may be blocked, treat as already booted)
+        const pre = document.getElementById("preloader");
+        let booted = false;
+        try { booted = !!sessionStorage.getItem("booted"); } catch (e) { booted = true; }
+        let bootBase = performance.now() + 300;
+        if (reduced || booted) {
+          killLoader();
+        } else {
+          try { sessionStorage.setItem("booted", "1"); } catch (e) {}
+          bootBase = performance.now() + 1300;
+          const log = document.getElementById("bootlog");
+          const bootLines = ["starting agents (12)", "checking backups", "cluster nominal"];
+          let li = 0;
+          const step = () => {
+            log.innerHTML += ' <span class="ok">[ OK ]</span>' + (li < bootLines.length ? "\n" + bootLines[li] : "");
+            if (li < bootLines.length) { li++; setTimeout(step, 170); }
+            else { pre.classList.add("done"); setTimeout(() => pre.remove(), 450); }
+          };
+          setTimeout(step, 200);
+        }
+
+        // scroll reveals
+        const revealEls = document.querySelectorAll(".reveal, .reveal-stagger");
+        if (reduced || !hasIO) {
+          revealEls.forEach((el) => el.classList.add("visible"));
+        } else {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+          }, { threshold: 0.12 });
+          revealEls.forEach((el) => observer.observe(el));
+        }
+
+        // clock
+        const clock = document.getElementById("clock");
+        const tick = () => { clock.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); };
+        tick(); setInterval(tick, 30000);
+
+        // pipeline spine
+        const fill = document.querySelector(".spine-fill");
+        const spineNodes = Array.from(document.querySelectorAll(".spine-node"));
+        function updateSpine() {
+          const h = document.documentElement;
+          fill.style.height = Math.min(100, (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100) + "%";
+          let activeSet = false;
+          for (let i = spineNodes.length - 1; i >= 0; i--) {
+            const target = document.getElementById(spineNodes[i].dataset.target);
+            const done = h.scrollTop + innerHeight * 0.45 >= target.offsetTop;
+            spineNodes[i].classList.toggle("done", done);
+            spineNodes[i].classList.toggle("active", done && !activeSet);
+            if (done) activeSet = true;
+          }
+        }
+        addEventListener("scroll", updateSpine, { passive: true });
+        addEventListener("resize", updateSpine);
+        updateSpine();
+
+        // toast
+        const toastEl = document.getElementById("toast");
+        let toastTimer;
+        function toast(html) {
+          toastEl.innerHTML = html;
+          toastEl.classList.add("show");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toastEl.classList.remove("show"), 4500);
+        }
+
+        // receipts counters
+        const counters = document.querySelectorAll(".stat b[data-count]");
+        const fmtCount = (el, v) => {
+          const d = +(el.dataset.decimals || 0);
+          let s = v.toFixed(d);
+          if (d === 0) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          el.textContent = (el.dataset.prefix || "") + s + (el.dataset.suffix || "");
+        };
+        if (reduced || !hasIO) {
+          counters.forEach((el) => fmtCount(el, +el.dataset.count));
+        } else {
+          const cObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              cObs.unobserve(entry.target);
+              const el = entry.target, target = +el.dataset.count, t0 = performance.now(), dur = 1400;
+              (function run(nw) {
+                const p = Math.min(1, (nw - t0) / dur);
+                fmtCount(el, target * (1 - Math.pow(1 - p, 3)));
+                if (p < 1) requestAnimationFrame(run);
+              })(t0);
+            });
+          }, { threshold: 0.5 });
+          counters.forEach((el) => cObs.observe(el));
+        }
+
+        // magnetic buttons
+        if (!reduced && matchMedia("(pointer: fine)").matches) {
+          document.querySelectorAll(".button").forEach((b) => {
+            b.addEventListener("mousemove", (e) => {
+              const r = b.getBoundingClientRect();
+              const mx = e.clientX - r.left - r.width / 2;
+              const my = e.clientY - r.top - r.height / 2;
+              b.style.transform = "translate(" + (mx * 0.16).toFixed(1) + "px," + (my * 0.32).toFixed(1) + "px)";
+            });
+            b.addEventListener("mouseleave", () => { b.style.transform = ""; });
+          });
+        }
+
+        // lab uptime
+        const up = document.getElementById("uptime");
+        if (up) {
+          const days = Math.max(0, Math.floor((Date.now() - Date.parse("2026-02-01T00:00:00Z")) / 86400000));
+          up.textContent = "lab uptime: " + days + " days";
+        }
+
+        // living topology
+        const canvas = document.getElementById("topology");
+        const ctx = canvas.getContext("2d");
+        const LABELS = ["talos", "kubernetes", "gitops", "entra id", "mcp", "agents", "ingress", "secrets", "backups", "grafana", "pgvector", "copilot", "azure", "aws", "graph api", "runbooks", "mission ctl", "life hub", "brain", "dlp", "finops", "postgres"];
+        let W, H, nodes = [], edges = [], adjacency = [], pulses = [];
+        const mouse = { x: -9999, y: -9999 };
+        let incident = -1;
+        let incidentStart = 0;
+
+        function seedRandom(seed) {
+          return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+        }
+
+        function build() {
+          W = canvas.width = canvas.offsetWidth * dpr;
+          H = canvas.height = canvas.offsetHeight * dpr;
+          const rand = seedRandom(42);
+          const count = Math.min(LABELS.length, Math.max(16, Math.floor((W / dpr) / 68)));
+          nodes = Array.from({ length: count }, (_, i) => ({
+            x: rand() * W, y: rand() * H,
+            vx: (rand() - 0.5) * 0.12 * dpr,
+            vy: (rand() - 0.5) * 0.12 * dpr,
+            dx: 0, dy: 0,
+            r: (2.2 + rand() * 2.5) * dpr,
+            label: LABELS[i],
+            born: bootBase + i * 85,
+          }));
+          edges = [];
+          for (let i = 0; i < nodes.length; i++) {
+            const near = nodes.map((n, j) => ({ j, d: (n.x - nodes[i].x) ** 2 + (n.y - nodes[i].y) ** 2 }))
+              .filter((o) => o.j !== i).sort((a, b) => a.d - b.d).slice(0, 2);
+            near.forEach((o) => {
+              if (!edges.some((e) => (e.a === i && e.b === o.j) || (e.a === o.j && e.b === i))) edges.push({ a: i, b: o.j });
+            });
+          }
+          adjacency = nodes.map(() => []);
+          edges.forEach((e, idx) => { adjacency[e.a].push({ edge: idx, to: e.b }); adjacency[e.b].push({ edge: idx, to: e.a }); });
+          pulses = [];
+          incident = -1; // any active drill's node index is stale after a rebuild
+        }
+
+        function px(n) { return { x: n.x + n.dx, y: n.y + n.dy }; }
+
+        function addPulse(from, to, delayMs) {
+          pulses.push({ from, to, t: 0, speed: 0.008 + Math.random() * 0.006, start: performance.now() + (delayMs || 0) });
+        }
+
+        function cascade(origin) {
+          const seen = new Set([origin]);
+          let frontier = [origin], depth = 0;
+          while (frontier.length && depth < 5) {
+            const next = [];
+            frontier.forEach((i) => {
+              adjacency[i].forEach((o) => {
+                if (!seen.has(o.to)) { seen.add(o.to); addPulse(i, o.to, depth * 170); next.push(o.to); }
+              });
+            });
+            frontier = next; depth++;
+          }
+        }
+
+        function ambient() {
+          if (edges.length && pulses.length < 7) {
+            const e = edges[Math.floor(Math.random() * edges.length)];
+            Math.random() < 0.5 ? addPulse(e.a, e.b, 0) : addPulse(e.b, e.a, 0);
+          }
+        }
+
+        function drawStatic() {
+          ctx.clearRect(0, 0, W, H);
+          const ink = "rgba(24, 32, 31,";
+          ctx.lineWidth = 1 * dpr;
+          edges.forEach((e) => {
+            const a = nodes[e.a], b = nodes[e.b];
+            ctx.strokeStyle = ink + "0.10)";
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          });
+          nodes.forEach((n) => {
+            ctx.fillStyle = ink + "0.22)";
+            ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+          });
+        }
+
+        function frame(now) {
+          ctx.clearRect(0, 0, W, H);
+          const ink = "rgba(24, 32, 31,";
+          nodes.forEach((n) => {
+            n.x += n.vx; n.y += n.vy;
+            if (n.x < 0 || n.x > W) n.vx *= -1;
+            if (n.y < 0 || n.y > H) n.vy *= -1;
+            const ddx = (n.x + n.dx) - mouse.x, ddy = (n.y + n.dy) - mouse.y;
+            const dist = Math.hypot(ddx, ddy);
+            const range = 140 * dpr;
+            if (dist < range && dist > 0.001) {
+              const f = ((range - dist) / range) * 2.2 * dpr;
+              n.dx += (ddx / dist) * f; n.dy += (ddy / dist) * f;
+            }
+            n.dx *= 0.9; n.dy *= 0.9;
+          });
+          ctx.lineWidth = 1 * dpr;
+          const boot = (n) => Math.max(0, Math.min(1, (now - n.born) / 420));
+          edges.forEach((e) => {
+            const na = Math.min(boot(nodes[e.a]), boot(nodes[e.b]));
+            if (na <= 0) return;
+            const a = px(nodes[e.a]), b = px(nodes[e.b]);
+            const hot = e.a === incident || e.b === incident;
+            ctx.strokeStyle = hot ? "rgba(192, 57, 43, " + ((0.3 + 0.2 * Math.sin(now / 90)) * na) + ")" : ink + (0.10 * na) + ")";
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          });
+          nodes.forEach((n, i) => {
+            const na = boot(n);
+            if (na <= 0) return;
+            const p = px(n);
+            if (i === incident) {
+              // expanding alarm rings, sonar style
+              const elapsed = now - incidentStart;
+              for (let k = 0; k < 2; k++) {
+                const ring = ((elapsed + k * 700) % 1400) / 1400;
+                ctx.strokeStyle = "rgba(192, 57, 43, " + (0.6 * (1 - ring)) + ")";
+                ctx.lineWidth = 2 * dpr;
+                ctx.beginPath(); ctx.arc(p.x, p.y, n.r * 2 + ring * 36 * dpr, 0, Math.PI * 2); ctx.stroke();
+              }
+              ctx.lineWidth = 1 * dpr;
+              // red glow
+              ctx.fillStyle = "rgba(192, 57, 43, 0.16)";
+              ctx.beginPath(); ctx.arc(p.x, p.y, n.r * 5, 0, Math.PI * 2); ctx.fill();
+              // throbbing core
+              const throb = 1 + 0.45 * Math.sin(now / 110);
+              ctx.fillStyle = "rgba(192, 57, 43, 0.95)";
+              ctx.beginPath(); ctx.arc(p.x, p.y, n.r * throb * 1.8, 0, Math.PI * 2); ctx.fill();
+            } else {
+              ctx.fillStyle = ink + (0.22 * na) + ")";
+              ctx.beginPath(); ctx.arc(p.x, p.y, n.r * (0.4 + 0.6 * na), 0, Math.PI * 2); ctx.fill();
+            }
+            const ld = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+            const reach = 190 * dpr;
+            if (na > 0.95 && (i === incident || ld < reach)) {
+              const alpha = i === incident ? 0.95 : (1 - ld / reach) * 0.85;
+              ctx.font = "600 " + (11 * dpr) + "px 'JetBrains Mono', monospace";
+              ctx.fillStyle = i === incident ? "rgba(192, 57, 43, " + alpha + ")" : "rgba(88, 97, 111, " + alpha + ")";
+              ctx.fillText(i === incident ? n.label + " ▸ DOWN" : n.label, p.x + 10 * dpr, p.y - 8 * dpr);
+            }
+          });
+          pulses = pulses.filter((p) => p.t <= 1);
+          pulses.forEach((p) => {
+            if (now < p.start) return;
+            const a = px(nodes[p.from]), b = px(nodes[p.to]);
+            const x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
+            ctx.fillStyle = "rgba(40, 91, 72, 0.85)";
+            ctx.beginPath(); ctx.arc(x, y, 3 * dpr, 0, Math.PI * 2); ctx.fill();
+            p.t += p.speed;
+          });
+          requestAnimationFrame(frame);
+        }
+
+        // cursor + click interaction
+        const hero = document.querySelector(".hero");
+        hero.addEventListener("mousemove", (e) => {
+          const r = canvas.getBoundingClientRect();
+          mouse.x = (e.clientX - r.left) * dpr;
+          mouse.y = (e.clientY - r.top) * dpr;
+        });
+        hero.addEventListener("mouseleave", () => { mouse.x = -9999; mouse.y = -9999; });
+        hero.addEventListener("click", (e) => {
+          if (reduced) return;
+          if (e.target.closest("a, button, input, select, textarea")) return;
+          const r = canvas.getBoundingClientRect();
+          const cx = (e.clientX - r.left) * dpr, cy = (e.clientY - r.top) * dpr;
+          let best = -1, bestD = 90 * dpr;
+          nodes.forEach((n, i) => {
+            const p = px(n);
+            const d = Math.hypot(p.x - cx, p.y - cy);
+            if (d < bestD) { best = i; bestD = d; }
+          });
+          if (best >= 0) cascade(best);
+        });
+
+        // chaos drill
+        const chaosBtn = document.getElementById("chaosBtn");
+        const clusterRow = document.getElementById("clusterRow");
+        const clusterState = document.getElementById("clusterState");
+        const lastIncident = document.getElementById("lastIncident");
+        chaosBtn.addEventListener("click", () => {
+          if (incident >= 0 || !nodes.length) return;
+          // prefer a node in the visible upper band of the canvas, not hidden behind content
+          let pool = [];
+          nodes.forEach((n, i) => { if ((n.y + n.dy) < H * 0.4) pool.push(i); });
+          if (!pool.length) pool = nodes.map((_, i) => i);
+          incident = pool[Math.floor(Math.random() * pool.length)];
+          incidentStart = performance.now();
+          const downLabel = nodes[incident].label;
+          clusterRow.classList.add("down");
+          clusterState.textContent = "degraded";
+          chaosBtn.disabled = true;
+          chaosBtn.textContent = "▸ incident in progress…";
+          toast("<b>alert</b> node " + downLabel + " down. recovery running");
+          setTimeout(() => {
+            try {
+              const healed = incident;
+              incident = -1;
+              clusterRow.classList.remove("down");
+              clusterState.textContent = "nominal";
+              lastIncident.textContent = "just now";
+              if (!reduced && healed >= 0 && healed < nodes.length) cascade(healed);
+              toast("<b>resolved</b> " + downLabel + " recovered · postmortem filed · MTTR 4.6s");
+            } finally {
+              setTimeout(() => { chaosBtn.disabled = false; chaosBtn.textContent = "▸ run a failure drill"; }, 2200);
+            }
+          }, 4600);
+        });
+
+        build();
+        addEventListener("resize", () => { build(); if (reduced) drawStatic(); });
+        if (!reduced) {
+          setTimeout(() => setInterval(ambient, 900), 3000);
+          requestAnimationFrame(frame);
+        } else {
+          drawStatic();
+        }
+        } catch (err) {
+          // if anything above failed, fall back to a fully visible static page
+          document.documentElement.classList.remove("js");
+          killLoader();
+        }
+      })();
+    </script>
+  </body>
+</html>

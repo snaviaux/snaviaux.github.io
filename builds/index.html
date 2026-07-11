@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <title>Steven Naviaux | Selected Builds</title>
+    <meta name="description" content="Selected independent infrastructure and AI builds by Steven Naviaux, including platform operations, agent workflows, personal intelligence, and AI memory systems.">
+    <link rel="canonical" href="https://www.stevennaviaux.com/builds/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Steven Naviaux | Selected Builds">
+    <meta property="og:description" content="Selected independent infrastructure and AI builds by Steven Naviaux, including platform operations, agent workflows, personal intelligence, and AI memory systems.">
+    <meta property="og:url" content="https://www.stevennaviaux.com/builds/">
+    <meta property="og:image" content="https://www.stevennaviaux.com/assets/headshot.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Steven Naviaux | Selected Builds">
+    <meta name="twitter:description" content="Selected independent infrastructure and AI builds by Steven Naviaux, including platform operations, agent workflows, personal intelligence, and AI memory systems.">
+    <meta name="twitter:image" content="https://www.stevennaviaux.com/assets/headshot.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=JetBrains+Mono:wght@400;600;700&display=swap">
+    <style>
+      :root {
+        --ink: #12141a;
+        --muted: #58616f;
+        --paper: #f6f4ef;
+        --panel: #ffffff;
+        --line: #d9d3c8;
+        --line-strong: #b9afa1;
+        --forest: #285b48;
+        --charcoal: #18201f;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        --shadow: 0 18px 45px rgba(18, 20, 26, 0.09);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.55;
+      }
+      a { color: inherit; }
+      :focus-visible { outline: 3px solid var(--forest); outline-offset: 3px; }
+      section[id] { scroll-margin-top: 96px; }
+
+      .skip-link {
+        position: absolute; left: 16px; top: 12px; z-index: 120;
+        transform: translateY(-200%);
+        border-radius: 6px; background: var(--ink); color: #ffffff;
+        padding: 10px 14px; text-decoration: none; font-weight: 700;
+      }
+      .skip-link:focus { transform: translateY(0); }
+
+      .ribbon {
+        background: var(--charcoal);
+        color: #f6f4ef;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        padding: 9px 24px;
+        letter-spacing: 0.04em;
+      }
+      .ribbon strong { color: #8fd4b4; }
+
+      header.site {
+        position: sticky; top: 0; z-index: 50;
+        display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        padding: 16px 40px;
+        background: rgba(246, 244, 239, 0.88);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 850; text-decoration: none; }
+      .brand-mark {
+        display: inline-grid; place-items: center; width: 38px; height: 38px;
+        border-radius: 9px; background: var(--charcoal); color: #fff;
+        font-family: var(--mono); font-size: 14px; font-weight: 700;
+      }
+      nav.links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14.5px; font-weight: 650; }
+      nav.links a { text-decoration: none; opacity: 0.75; transition: opacity 0.15s; position: relative; }
+      nav.links a:hover { opacity: 1; }
+      nav.links a::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px;
+        background: var(--forest); transform: scaleX(0); transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+      nav.links a:hover::after, nav.links a:focus-visible::after { transform: scaleX(1); }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 13px; font-weight: 600;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--forest);
+        margin: 0 0 14px;
+      }
+
+      .button {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 44px; padding: 10px 18px;
+        border: 1px solid var(--line-strong); border-radius: 8px;
+        background: #fff; font-size: 15px; font-weight: 800; text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
+      }
+      .button:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--ink); }
+      .button-primary { background: var(--charcoal); border-color: var(--charcoal); color: #fff; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+      /* hero */
+      .hero {
+        max-width: 1200px; margin: 0 auto;
+        display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 48px; align-items: start;
+        padding: 90px 40px 70px;
+      }
+      .hero h1 {
+        font-size: clamp(36px, 5vw, 62px);
+        line-height: 1.05; letter-spacing: -0.02em;
+        margin: 0 0 22px; font-weight: 880;
+      }
+      .hero-lede { font-size: 18px; color: var(--muted); margin: 0 0 28px; }
+      .build-index { display: grid; gap: 12px; }
+      .build-index a {
+        display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px;
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        padding: 16px 18px; text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .build-index a:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+      .build-index span { grid-row: span 2; font-family: var(--mono); font-weight: 700; color: var(--forest); font-size: 18px; align-self: center; }
+      .build-index strong { font-size: 16.5px; }
+      .build-index small { color: var(--muted); font-size: 13.5px; }
+
+      /* build sections */
+      .build-detail { padding: 96px 40px; }
+      .band { background: #efece4; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .build-inner { max-width: 1160px; margin: 0 auto; }
+      .build-header {
+        display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: 40px; align-items: center; margin-bottom: 40px; position: relative;
+      }
+      .build-header.text-only { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+      .build-header::before {
+        content: attr(data-num);
+        position: absolute; top: -70px; left: -10px; z-index: 0;
+        font-family: var(--mono); font-weight: 700; line-height: 1;
+        font-size: clamp(90px, 11vw, 150px);
+        color: rgba(24, 32, 31, 0.055);
+        pointer-events: none;
+      }
+      .build-header h2 { font-size: clamp(30px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 16px; font-weight: 870; }
+      .build-header p { color: var(--muted); font-size: 17px; margin: 0; }
+      .build-shot { width: 100%; border-radius: 10px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+
+      .build-body {
+        display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.7fr);
+        gap: 24px; margin-bottom: 24px;
+      }
+      .build-body h3 { margin: 0 0 12px; font-size: 20px; }
+      .build-body p { color: var(--muted); margin: 0 0 14px; font-size: 15.5px; }
+      .build-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: 15.5px; }
+      .build-list li + li { margin-top: 9px; }
+      .outcome {
+        font-family: var(--mono); font-size: 13px; color: var(--forest);
+        margin: 16px 0 0; padding-top: 12px; border-top: 1px dashed var(--line);
+      }
+      .outcome::before { content: "outcome · "; color: var(--muted); }
+      .pullout {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        padding: 20px; align-self: start;
+      }
+      .pullout strong { display: block; margin-bottom: 8px; font-size: 16px; }
+      .pullout p { color: var(--muted); margin: 0; font-size: 14.5px; }
+      .band .pullout { background: #ffffff; }
+
+      .terminal {
+        display: grid; gap: 8px;
+        background: var(--charcoal); color: #cfe8db;
+        border-radius: 10px; padding: 22px;
+        font-family: var(--mono); font-size: 13.5px;
+      }
+      .terminal span::before { content: "▸ "; color: #8fd4b4; }
+
+      .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 10px 0 0; padding: 0; }
+      .tags li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 10px; }
+
+      /* closing */
+      .close-section { max-width: 820px; margin: 0 auto; text-align: center; padding: 100px 40px; }
+      .close-section h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; margin: 8px 0 16px; font-weight: 870; }
+      .close-section p { color: var(--muted); font-size: 17px; }
+      .close-section .actions { justify-content: center; margin-top: 26px; }
+
+      footer.site {
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        border-top: 1px solid var(--line); padding: 28px 40px; font-size: 14px; color: var(--muted);
+      }
+      footer.site p { margin: 0; }
+
+      /* reveals (hidden state only applies once JS has confirmed itself via .js) */
+      .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .reveal.visible { opacity: 1; transform: none; }
+
+      @media (max-width: 980px) {
+        .hero, .build-header, .build-header.text-only { grid-template-columns: 1fr; }
+        .build-body { grid-template-columns: 1fr 1fr; }
+        .pullout { grid-column: 1 / -1; }
+      }
+      @media (max-width: 680px) {
+        header.site, footer.site { padding-left: 20px; padding-right: 20px; }
+        .hero { padding: 60px 20px 50px; }
+        section[id] { scroll-margin-top: 150px; }
+        .build-detail { padding: 70px 20px; }
+        .close-section { padding: 80px 20px; }
+        .build-body { grid-template-columns: 1fr; }
+        .build-header::before { font-size: 80px; top: -48px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        .reveal { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+  </head>
+  <body class="portfolio-page build-page live-mode" data-site-state="live">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site" aria-label="Primary navigation">
+      <a class="brand" href="../#top" aria-label="Steven Naviaux home">
+        <span class="brand-mark" aria-hidden="true">SN</span>
+        <span>Steven Naviaux</span>
+      </a>
+      <nav class="links" aria-label="Build sections">
+        <a href="../#lab">Lab</a>
+        <a href="#talos">Talos</a>
+        <a href="#openclaw">OpenClaw</a>
+        <a href="#life-hub">Life Hub</a>
+        <a href="#brain">Brain</a>
+        <a href="../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="builds-title">
+        <div>
+          <p class="eyebrow">Selected builds</p>
+          <h1 id="builds-title">The longer version of the lab.</h1>
+          <p class="hero-lede">
+            The homepage gets the short version. This page is for the systems that have enough scar tissue to be useful: what they are, why they exist, what they prove, and what I learned after the first clean demo stopped being interesting. The lab runs the same discipline as my day job in enterprise infrastructure; the difference is that here I hold root on every layer.
+          </p>
+          <div class="actions">
+            <a class="button button-primary" href="../#lab">Back to lab</a>
+            <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
+          </div>
+        </div>
+        <div class="build-index" aria-label="Build index">
+          <a href="#talos">
+            <span>01</span>
+            <strong>Talos Kubernetes Homelab</strong>
+            <small>Platform operations, recovery, and the boring parts that decide whether a cluster deserves trust.</small>
+          </a>
+          <a href="#openclaw">
+            <span>02</span>
+            <strong>OpenClaw</strong>
+            <small>An open-source agent platform run in production: persistent context, explicit task state, and rules I wrote for how it runs.</small>
+          </a>
+          <a href="#life-hub">
+            <span>03</span>
+            <strong>Life Hub</strong>
+            <small>A personal operating picture for signals, habits, projects, advisors, and forecasts.</small>
+          </a>
+          <a href="#brain">
+            <span>04</span>
+            <strong>Life Hub Brain</strong>
+            <small>The memory layer underneath: durable context agents can actually retrieve.</small>
+          </a>
+        </div>
+      </section>
+
+      <section class="build-detail band" id="talos" aria-labelledby="talos-title">
+        <div class="build-inner">
+          <div class="build-header reveal" data-num="01">
+            <div>
+              <p class="eyebrow">Build 01</p>
+              <h2 id="talos-title">Talos Kubernetes Homelab</h2>
+              <p>
+                A small Kubernetes environment that behaves like real infrastructure because it has to. Immutable Talos Linux with no SSH surface, storage, ingress, secrets encrypted in Git, dashboards, backups, updates, and the occasional reminder that the network does not care about my intentions. The Git history is the receipt: 300+ merged pull requests.
+              </p>
+            </div>
+            <img class="build-shot" src="../assets/lab-infra.png" alt="Cropped infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status.">
+          </div>
+          <div class="build-body reveal">
+            <article>
+              <h3>Why it exists</h3>
+              <p>
+                I wanted a place where architecture arguments have consequences. A diagram can make almost anything look clean. A cluster that runs for months will tell you which parts were actually clear, which parts were wishful, and which parts only worked because I remembered the trick.
+              </p>
+              <p>
+                The lab gives me a controlled place to practice platform operations without pretending it is harmless. Change management, rollback, observability, runbooks, drift, and backup testing all show up eventually. So do the failures: the worst one earned a written root-cause analysis, the same as production would.
+              </p>
+            </article>
+            <article>
+              <h3>What it proves</h3>
+              <ul class="build-list">
+                <li>Git-managed infrastructure changes beat memory and vibes.</li>
+                <li>Private ingress, secrets, and access paths need clear ownership even in a one-person lab.</li>
+                <li>Monitoring is only useful when someone owns the response to it.</li>
+                <li>Recovery notes are part of the build, not an afterthought.</li>
+              </ul>
+              <p class="outcome">300+ merged pull requests of auditable change history · public ingress with zero forwarded ports · restore drill passed</p>
+            </article>
+            <aside class="pullout">
+              <strong>The 3 AM Test</strong>
+              <p>Can I explain it, recover it, and trust it when I am tired? If not, the design is still borrowing confidence from a good mood.</p>
+            </aside>
+          </div>
+          <ul class="tags" aria-label="Talos build tags">
+            <li>Kubernetes</li>
+            <li>Talos</li>
+            <li>GitOps</li>
+            <li>Ingress</li>
+            <li>Secrets</li>
+            <li>Observability</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="build-detail" id="openclaw" aria-labelledby="openclaw-title">
+        <div class="build-inner">
+          <div class="build-header text-only reveal" data-num="02">
+            <div>
+              <p class="eyebrow">Build 02</p>
+              <h2 id="openclaw-title">OpenClaw</h2>
+              <p>
+                A production deployment of OpenClaw, Peter Steinberger's open-source agent platform. More than a dozen agents run on it today, operated over chat. The point is not that agents can write code. We know that. The harder question is whether they can work inside a real operating model without turning every task into a foggy chat transcript.
+              </p>
+            </div>
+            <div class="terminal" aria-label="OpenClaw operating model">
+              <span>upstream: open source</span>
+              <span>operations: mine</span>
+              <span>workspace: persistent</span>
+              <span>context: carried forward</span>
+              <span>tasks: explicit handoffs</span>
+              <span>guardrails: boring on purpose</span>
+            </div>
+          </div>
+          <div class="build-body reveal">
+            <article>
+              <h3>Why it exists</h3>
+              <p>
+                Agent demos usually end right before operations begin. Running OpenClaw is my attempt to stay with the unglamorous part: how tasks are created, picked up, reviewed, handed off, and kept from drifting into mystery meat automation.
+              </p>
+              <p>
+                The platform treats the workspace as the durable object: files, state, history, and constraints carry forward instead of starting over from a blank box. The parts I built live around that. Mission Control, a task-state dashboard running as a sidecar, and an execution policy with WIP caps, stale-task rollback, and closure notes.
+              </p>
+              <p>
+                When I audit it, I audit it the way an employer would: a six-failure-mode review, with per-run cost and latency telemetry to back it.
+              </p>
+            </article>
+            <article>
+              <h3>What it proves</h3>
+              <ul class="build-list">
+                <li>Agents need task state, not just instructions.</li>
+                <li>The handoff is a product surface, even when the user is me.</li>
+                <li>Persistence is the feature and the attack surface.</li>
+                <li>How it is run is what separates a useful agent system from a clever toy.</li>
+              </ul>
+              <p class="outcome">more than a dozen agents in daily operation · audited across six failure modes with per-run cost and latency telemetry</p>
+            </article>
+            <aside class="pullout">
+              <strong>The question underneath</strong>
+              <p>Can a system make the next step clearer without hiding who is responsible for the result?</p>
+            </aside>
+          </div>
+          <ul class="tags" aria-label="OpenClaw build tags">
+            <li>Agents</li>
+            <li>Workspaces</li>
+            <li>MCP</li>
+            <li>Task state</li>
+            <li>Handoffs</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="build-detail band" id="life-hub" aria-labelledby="life-hub-title">
+        <div class="build-inner">
+          <div class="build-header reveal" data-num="03">
+            <div>
+              <p class="eyebrow">Build 03</p>
+              <h2 id="life-hub-title">Life Hub</h2>
+              <p>
+                A personal operating picture that tries to answer a better question than "what happened." It pulls signals into one place so the system can ask what changed, what matters, and what deserves attention next.
+              </p>
+            </div>
+            <img class="build-shot" src="../assets/lab-triggers.png" alt="Cropped Mission Control trigger events view showing Life Hub intelligence signals and collector status.">
+          </div>
+          <div class="build-body reveal">
+            <article>
+              <h3>Why it exists</h3>
+              <p>
+                I wanted something more useful than a report: habits, sleep, mood, work, projects, signals, forecasts, and advisor commentary in one place, with enough context to act on. Twenty-odd collectors feed it on a cadence. Nine AI advisors interpret the results, and their disagreements are often the most useful signal.
+              </p>
+              <p>
+                The interesting part is not the chart. It is the translation layer between raw signal and decision. A metric should either change behavior or admit that it is decoration.
+              </p>
+            </article>
+            <article>
+              <h3>What it proves</h3>
+              <ul class="build-list">
+                <li>Data without a review cadence is just storage.</li>
+                <li>Forecasts are better when they show uncertainty instead of pretending to be prophecy.</li>
+                <li>Advisor-style AI is most useful when it argues from evidence it can cite.</li>
+                <li>The best dashboard is a conversation with receipts.</li>
+              </ul>
+              <p class="outcome">in daily use · when several advisors independently flag the same domain, it escalates to an action item automatically</p>
+            </article>
+            <aside class="pullout">
+              <strong>The line I keep</strong>
+              <p>Data is not insight until it changes the next action.</p>
+            </aside>
+          </div>
+          <ul class="tags" aria-label="Life Hub build tags">
+            <li>Dashboards</li>
+            <li>Forecasts</li>
+            <li>Signals</li>
+            <li>Advisors</li>
+            <li>Personal ops</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="build-detail" id="brain" aria-labelledby="brain-title">
+        <div class="build-inner">
+          <div class="build-header reveal" data-num="04">
+            <div>
+              <p class="eyebrow">Build 04</p>
+              <h2 id="brain-title">Life Hub Brain</h2>
+              <p>
+                A memory layer for durable context, semantic search, and AI-readable knowledge. It starts from a simple complaint: useful assistants need better raw material than a blank chat box and whatever I remembered to paste.
+              </p>
+            </div>
+            <img class="build-shot" src="../assets/lab-brain.png" alt="Cropped semantic thought search interface with topic filters and search controls.">
+          </div>
+          <div class="build-body reveal">
+            <article>
+              <h3>Why it exists</h3>
+              <p>
+                My notes, decisions, threads, and fragments were not failing because there was too little content. They were failing because the context was scattered, hard to retrieve, and mostly invisible to the tools that could use it.
+              </p>
+              <p>
+                It started as a build of Nate B. Jones's Open Brain architecture on Supabase. I hardened it, then rebuilt it from scratch inside Life Hub on pgvector, where the capture flows and the rest of the dashboard already live. The point held through both versions: make context durable enough to be found later and structured enough for AI workflows to use without pretending every thought belongs in a perfect folder.
+              </p>
+              <p>
+                The Brain is one layer of a wider practice: 4,000+ interlinked notes and more than eighty custom Claude Code skills that work them. The memory layer is what makes that practice retrievable.
+              </p>
+            </article>
+            <article>
+              <h3>What it proves</h3>
+              <ul class="build-list">
+                <li>Memory is infrastructure when agents become part of the workflow.</li>
+                <li>Search has to support messy human recall, not just tidy filenames.</li>
+                <li>Capture needs to be low friction or the system starves.</li>
+                <li>Context is only useful if it can be retrieved at the moment of work.</li>
+              </ul>
+              <p class="outcome">4,000+ interlinked notes retrievable by agents over MCP · a design that survived a full rebuild from Supabase to pgvector</p>
+            </article>
+            <aside class="pullout">
+              <strong>The actual product</strong>
+              <p>Not another notes app. A better substrate for attention, recall, and AI collaboration.</p>
+            </aside>
+          </div>
+          <ul class="tags" aria-label="Life Hub Brain build tags">
+            <li>Memory</li>
+            <li>Semantic search</li>
+            <li>Context</li>
+            <li>Capture flows</li>
+            <li>AI workflows</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="close-section" aria-labelledby="builds-close-title">
+        <p class="eyebrow">What I leave out</p>
+        <h2 id="builds-close-title">The public version is intentionally incomplete.</h2>
+        <p>
+          I am not publishing hostnames, network paths, secrets, private dashboards, internal notes, or anything that would make the lab easier to attack. The repositories behind these builds are private for the same reason. The useful public story is the shape of the work, not the attack surface. If you want the receipts (Git history, runbooks, postmortems), ask, and I will walk you through them.
+        </p>
+        <div class="actions">
+          <a class="button button-primary" href="../#contact">Get in touch</a>
+          <a class="button" href="../">Back to portfolio</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site">
+      <p>Steven Naviaux · Denver, Colorado</p>
+      <p>Selected builds from the lab.</p>
+    </footer>
+
+    <script>
+      (function () {
+        try {
+          document.documentElement.classList.add("js");
+          const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          const els = document.querySelectorAll(".reveal");
+          if (reduced || !("IntersectionObserver" in window)) {
+            els.forEach((el) => el.classList.add("visible"));
+            return;
+          }
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+          }, { threshold: 0.1 });
+          els.forEach((el) => observer.observe(el));
+        } catch (err) {
+          document.documentElement.classList.remove("js");
+        }
+      })();
+    </script>
+  </body>
+</html>
