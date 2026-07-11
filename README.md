@@ -12,7 +12,6 @@ Static GitHub Pages site for `www.stevennaviaux.com`.
 - `assets/lab-*.png` - lab screenshots used on the project cards.
 - `assets/contact-form.js` - static lead-form handler with a configurable backend endpoint.
 - `scripts/promote-review.sh` - promotes the local review drafts to the public pages and fails loudly if any review marker survives.
-- `CNAME` - GitHub Pages custom domain.
 - `.nojekyll` - serves static files directly.
 
 ## Editing
