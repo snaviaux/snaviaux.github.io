@@ -1,24 +1,29 @@
 # StevenNaviaux.com
 
-Static GitHub Pages site for `www.stevennaviaux.com`.
+Portfolio site for Steven Naviaux: systems engineering across identity, cloud infrastructure, and the operational layer of AI. Plain HTML, CSS, and JavaScript with no build step, served by GitHub Pages.
 
-## Files
+Live at [snaviaux.github.io](https://snaviaux.github.io/) until the `www.stevennaviaux.com` DNS cutover completes.
+
+## Pages
 
 - `index.html` - portfolio homepage: living topology hero, failure drill, vitals counters, footprint map, contact form.
 - `builds/index.html` - selected builds: four case studies with outcome lines.
 - `404.html` - incident-report style 404 page; GitHub Pages serves it on every missing path.
+
+## Assets
+
 - `assets/favicon.svg` - SN mark favicon, linked on every page.
 - `assets/headshot.png` - self-hosted headshot used by social link cards.
 - `assets/lab-*.png` - lab screenshots used on the project cards.
-- `assets/contact-form.js` - static lead-form handler with a configurable backend endpoint.
-- `scripts/promote-review.sh` - promotes the local review drafts to the public pages and fails loudly if any review marker survives.
-- `.nojekyll` - serves static files directly.
+- `assets/contact-form.js` - lead-form handler; posts to Formspree and degrades to a plain notice if the endpoint is unavailable.
 
-## Editing
+## Workflow
 
-Pages are authored in a local `_review/` working area that is intentionally not committed. Edit the drafts there, run `scripts/promote-review.sh`, review the diff, then commit the promoted pages.
+Pages are authored in a local `_review/` working area that is intentionally not committed. Edit the drafts there, run `scripts/promote-review.sh` (it asserts expected copy, strips review markers, rewrites canonical URLs, and refuses to ship placeholders under `PROMOTE_STRICT=1`), review the diff, then commit the promoted pages.
 
-## Preview
+`.nojekyll` disables Jekyll so files are served exactly as committed.
+
+## Local preview
 
 ```bash
 python3 -m http.server 4173 --bind 127.0.0.1
