@@ -1,0 +1,54 @@
+<div class="build-inner" data-selected-build="openclaw">
+  <div class="build-header text-only" data-num="02">
+    <div>
+      <p class="eyebrow">Build 02</p>
+      <h2 id="selected-build-title">OpenClaw</h2>
+      <p>
+        A production deployment of OpenClaw, Peter Steinberger's open-source agent platform. More than a dozen agents run on it today, operated over chat. The point is not that agents can write code. We know that. The harder question is whether they can work inside a real operating model without turning every task into a foggy chat transcript.
+      </p>
+    </div>
+    <div class="terminal" aria-label="OpenClaw operating model">
+      <span>upstream: open source</span>
+      <span>operations: mine</span>
+      <span>workspace: persistent</span>
+      <span>context: carried forward</span>
+      <span>tasks: explicit handoffs</span>
+      <span>guardrails: boring on purpose</span>
+    </div>
+  </div>
+  <div class="build-body">
+    <article>
+      <h3>Why it exists</h3>
+      <p>
+        Agent demos usually end right before operations begin. Running OpenClaw is my attempt to stay with the unglamorous part: how tasks are created, picked up, reviewed, handed off, and kept from drifting into mystery meat automation.
+      </p>
+      <p>
+        The platform treats the workspace as the durable object: files, state, history, and constraints carry forward instead of starting over from a blank box. The parts I built live around that. Mission Control, a task-state dashboard running as a sidecar, and an execution policy with WIP caps, stale-task rollback, and closure notes.
+      </p>
+      <p>
+        When I audit it, I audit it the way an employer would: a six-failure-mode review, with per-run cost and latency telemetry to back it.
+      </p>
+    </article>
+    <article>
+      <h3>What it proves</h3>
+      <ul class="build-list">
+        <li>Agents need task state, not just instructions.</li>
+        <li>The handoff is a product surface, even when the user is me.</li>
+        <li>Persistence is the feature and the attack surface.</li>
+        <li>How it is run is what separates a useful agent system from a clever toy.</li>
+      </ul>
+      <p class="outcome">more than a dozen agents in daily operation · audited across six failure modes with per-run cost and latency telemetry</p>
+    </article>
+    <aside class="pullout">
+      <strong>The question underneath</strong>
+      <p>Can a system make the next step clearer without hiding who is responsible for the result?</p>
+    </aside>
+  </div>
+  <ul class="tags" aria-label="OpenClaw build tags">
+    <li>Agents</li>
+    <li>Workspaces</li>
+    <li>MCP</li>
+    <li>Task state</li>
+    <li>Handoffs</li>
+  </ul>
+</div>

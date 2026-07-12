@@ -1,6 +1,6 @@
 # StevenNaviaux.com
 
-Portfolio site for Steven Naviaux: systems engineering across identity, cloud infrastructure, and the operational layer of AI. Plain HTML, CSS, and JavaScript with no build step, served by GitHub Pages.
+Portfolio site for Steven Naviaux: systems engineering across identity, cloud infrastructure, and the operational layer of AI. Plain HTML, CSS, JavaScript, and a vendored HTMX runtime with no build step, served by GitHub Pages.
 
 Live at [www.stevennaviaux.com](https://www.stevennaviaux.com/).
 
@@ -16,6 +16,12 @@ Live at [www.stevennaviaux.com](https://www.stevennaviaux.com/).
 - `assets/headshot.png` - self-hosted headshot used by social link cards.
 - `assets/lab-*.png` - lab screenshots used on the project cards.
 - `assets/contact-form.js` - lead-form handler; posts to Formspree and degrades to a plain notice if the endpoint is unavailable.
+- `assets/ux-fixes.css` - shared responsive navigation, touch-target, and build-chooser styles using the pages' existing CSS variables.
+- `assets/site-ui.js` - progressive mobile navigation and current-location behavior.
+- `assets/builds-ui.js` - mobile build-partial loading, focus, history, and error recovery.
+- `assets/htmx.min.js` - vendored HTMX runtime; its license is retained in `assets/htmx.LICENSE`.
+- `partials/nav/` - path-specific mobile navigation states.
+- `partials/builds/` - progressively enhanced case-study fragments; the complete static archive remains in `builds/index.html` for no-JavaScript and recovery paths.
 
 ## Workflow
 
