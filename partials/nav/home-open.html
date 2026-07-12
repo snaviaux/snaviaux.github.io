@@ -1,0 +1,24 @@
+<div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/home-closed.html">
+  <button
+    class="mobile-nav-toggle"
+    id="mobile-nav-toggle"
+    type="button"
+    aria-label="Close navigation"
+    aria-expanded="true"
+    aria-controls="mobile-nav-panel"
+    hx-get="/partials/nav/home-closed.html"
+    hx-target="#mobile-nav-slot"
+    hx-swap="outerHTML"
+  >
+    <span>Close</span>
+    <span class="mobile-nav-current" data-nav-current>Start</span>
+  </button>
+  <nav class="mobile-nav-panel" id="mobile-nav-panel" aria-label="Sections">
+    <a href="#signal" data-nav-target="signal">Signal</a>
+    <a href="#lab" data-nav-target="lab">Lab</a>
+    <a href="/builds/">Builds</a>
+    <a href="#patterns" data-nav-target="patterns">Failure modes</a>
+    <a href="#writing" data-nav-target="writing">Field notes</a>
+    <a href="#contact" data-nav-target="contact">Contact</a>
+  </nav>
+</div>

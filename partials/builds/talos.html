@@ -1,0 +1,45 @@
+<div class="build-inner" data-selected-build="talos">
+  <div class="build-header" data-num="01">
+    <div>
+      <p class="eyebrow">Build 01</p>
+      <h2 id="selected-build-title">Talos Kubernetes Homelab</h2>
+      <p>
+        A small Kubernetes environment that behaves like real infrastructure because it has to. Immutable Talos Linux with no SSH surface, storage, ingress, secrets encrypted in Git, dashboards, backups, updates, and the occasional reminder that the network does not care about my intentions. The Git history is the receipt: 300+ merged pull requests.
+      </p>
+    </div>
+    <img class="build-shot" src="../assets/lab-infra.png" alt="Cropped infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status.">
+  </div>
+  <div class="build-body">
+    <article>
+      <h3>Why it exists</h3>
+      <p>
+        I wanted a place where architecture arguments have consequences. A diagram can make almost anything look clean. A cluster that runs for months will tell you which parts were actually clear, which parts were wishful, and which parts only worked because I remembered the trick.
+      </p>
+      <p>
+        The lab gives me a controlled place to practice platform operations without pretending it is harmless. Change management, rollback, observability, runbooks, drift, and backup testing all show up eventually. So do the failures: the worst one earned a written root-cause analysis, the same as production would.
+      </p>
+    </article>
+    <article>
+      <h3>What it proves</h3>
+      <ul class="build-list">
+        <li>Git-managed infrastructure changes beat memory and vibes.</li>
+        <li>Private ingress, secrets, and access paths need clear ownership even in a one-person lab.</li>
+        <li>Monitoring is only useful when someone owns the response to it.</li>
+        <li>Recovery notes are part of the build, not an afterthought.</li>
+      </ul>
+      <p class="outcome">300+ merged pull requests of auditable change history · public ingress with zero forwarded ports · restore drill passed</p>
+    </article>
+    <aside class="pullout">
+      <strong>The 3 AM Test</strong>
+      <p>Can I explain it, recover it, and trust it when I am tired? If not, the design is still borrowing confidence from a good mood.</p>
+    </aside>
+  </div>
+  <ul class="tags" aria-label="Talos build tags">
+    <li>Kubernetes</li>
+    <li>Talos</li>
+    <li>GitOps</li>
+    <li>Ingress</li>
+    <li>Secrets</li>
+    <li>Observability</li>
+  </ul>
+</div>

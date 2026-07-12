@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="index,follow">
     <title>Steven Naviaux | Selected Builds</title>
     <meta name="description" content="Selected independent infrastructure and AI builds by Steven Naviaux, including platform operations, agent workflows, personal intelligence, and AI memory systems.">
@@ -19,7 +19,8 @@
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=JetBrains+Mono:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/ux-fixes.css">
     <style>
       :root {
         --ink: #12141a;
@@ -221,6 +222,9 @@
         .reveal { opacity: 1 !important; transform: none !important; }
       }
     </style>
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site-ui.js" defer></script>
+    <script src="/assets/builds-ui.js" defer></script>
     <script defer src="https://umami.naviauxlab.com/script.js" data-website-id="bd5ea328-8098-4c85-b3f9-f597d5456130" data-domains="www.stevennaviaux.com" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous"></script>
 </head>
   <body class="portfolio-page build-page live-mode" data-site-state="live">
@@ -233,57 +237,122 @@
       </a>
       <nav class="links" aria-label="Build sections">
         <a href="../#lab">Lab</a>
-        <a href="#talos">Talos</a>
-        <a href="#openclaw">OpenClaw</a>
-        <a href="#life-hub">Life Hub</a>
-        <a href="#brain">Brain</a>
+        <a href="#talos" data-nav-target="talos">Talos</a>
+        <a href="#openclaw" data-nav-target="openclaw">OpenClaw</a>
+        <a href="#life-hub" data-nav-target="life-hub">Life Hub</a>
+        <a href="#brain" data-nav-target="brain">Brain</a>
         <a href="../#contact">Contact</a>
       </nav>
+      <div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/builds-closed.html">
+        <button
+          class="mobile-nav-toggle"
+          id="mobile-nav-toggle"
+          type="button"
+          aria-label="Open build navigation"
+          aria-expanded="false"
+          hx-get="/partials/nav/builds-open.html"
+          hx-target="#mobile-nav-slot"
+          hx-swap="outerHTML"
+        >
+          <span>Menu</span>
+          <span class="mobile-nav-current" data-nav-current>Builds</span>
+        </button>
+      </div>
     </header>
 
     <main id="main">
       <section class="hero" aria-labelledby="builds-title">
-        <div>
+        <div class="hero-title">
           <p class="eyebrow">Selected builds</p>
           <h1 id="builds-title">The longer version of the lab.</h1>
-          <p class="hero-lede">
-            The homepage gets the short version. This page is for the systems that have enough scar tissue to be useful: what they are, why they exist, what they prove, and what I learned after the first clean demo stopped being interesting. The lab runs the same discipline as my day job in enterprise infrastructure; the difference is that here I hold root on every layer.
-          </p>
-          <div class="actions">
-            <a class="button button-primary" href="../#lab">Back to lab</a>
-            <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
-          </div>
         </div>
         <div class="build-index" aria-label="Build index">
-          <a href="#talos">
+          <a
+            href="#talos"
+            data-build-choice
+            data-build-slug="talos"
+            hx-get="/partials/builds/talos.html"
+            hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
+            hx-target="#build-detail-content"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+          >
             <span>01</span>
             <strong>Talos Kubernetes Homelab</strong>
             <small>Platform operations, recovery, and the boring parts that decide whether a cluster deserves trust.</small>
           </a>
-          <a href="#openclaw">
+          <a
+            href="#openclaw"
+            data-build-choice
+            data-build-slug="openclaw"
+            hx-get="/partials/builds/openclaw.html"
+            hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
+            hx-target="#build-detail-content"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+          >
             <span>02</span>
             <strong>OpenClaw</strong>
             <small>An open-source agent platform run in production: persistent context, explicit task state, and rules I wrote for how it runs.</small>
           </a>
-          <a href="#life-hub">
+          <a
+            href="#life-hub"
+            data-build-choice
+            data-build-slug="life-hub"
+            hx-get="/partials/builds/life-hub.html"
+            hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
+            hx-target="#build-detail-content"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+          >
             <span>03</span>
             <strong>Life Hub</strong>
             <small>A personal operating picture for signals, habits, projects, advisors, and forecasts.</small>
           </a>
-          <a href="#brain">
+          <a
+            href="#brain"
+            data-build-choice
+            data-build-slug="brain"
+            hx-get="/partials/builds/brain.html"
+            hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
+            hx-target="#build-detail-content"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+          >
             <span>04</span>
             <strong>Life Hub Brain</strong>
             <small>The memory layer underneath: durable context agents can actually retrieve.</small>
           </a>
         </div>
+        <div class="hero-context">
+          <div class="actions">
+            <a
+              class="button button-primary"
+              href="#talos"
+              data-build-slug="talos"
+              hx-get="/partials/builds/talos.html"
+              hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
+              hx-target="#build-detail-content"
+              hx-swap="innerHTML"
+              hx-push-url="false"
+            >Start with Talos</a>
+            <a class="button" href="../#lab">Back to lab</a>
+          </div>
+          <p class="hero-lede">
+            The homepage gives the short version. These systems show the operating model behind the demos: what they are, what they prove, and what changed after the first clean demo stopped being interesting.
+          </p>
+          <a class="quiet-link" href="https://steven.naviauxlab.com/">Visit NaviauxLab</a>
+        </div>
       </section>
 
-      <section class="build-detail band" id="talos" aria-labelledby="talos-title">
-        <div class="build-inner">
+      <section class="build-detail band" id="build-detail" aria-labelledby="selected-build-title" aria-busy="false" data-build="talos">
+        <span class="anchor-target" id="talos" aria-hidden="true"></span>
+        <div id="build-detail-content">
+        <div class="build-inner" data-selected-build="talos">
           <div class="build-header reveal" data-num="01">
             <div>
               <p class="eyebrow">Build 01</p>
-              <h2 id="talos-title">Talos Kubernetes Homelab</h2>
+              <h2 id="selected-build-title">Talos Kubernetes Homelab</h2>
               <p>
                 A small Kubernetes environment that behaves like real infrastructure because it has to. Immutable Talos Linux with no SSH surface, storage, ingress, secrets encrypted in Git, dashboards, backups, updates, and the occasional reminder that the network does not care about my intentions. The Git history is the receipt: 300+ merged pull requests.
               </p>
@@ -324,9 +393,10 @@
             <li>Observability</li>
           </ul>
         </div>
+        </div>
       </section>
 
-      <section class="build-detail" id="openclaw" aria-labelledby="openclaw-title">
+      <section class="build-detail build-detail-secondary" id="openclaw" aria-labelledby="openclaw-title">
         <div class="build-inner">
           <div class="build-header text-only reveal" data-num="02">
             <div>
@@ -383,7 +453,7 @@
         </div>
       </section>
 
-      <section class="build-detail band" id="life-hub" aria-labelledby="life-hub-title">
+      <section class="build-detail band build-detail-secondary" id="life-hub" aria-labelledby="life-hub-title">
         <div class="build-inner">
           <div class="build-header reveal" data-num="03">
             <div>
@@ -430,7 +500,7 @@
         </div>
       </section>
 
-      <section class="build-detail" id="brain" aria-labelledby="brain-title">
+      <section class="build-detail build-detail-secondary" id="brain" aria-labelledby="brain-title">
         <div class="build-inner">
           <div class="build-header reveal" data-num="04">
             <div>

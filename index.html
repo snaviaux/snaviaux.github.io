@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="index,follow">
     <title>Steven Naviaux | Systems Craft</title>
     <meta name="description" content="Steven Naviaux is a systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, and agent operations.">
@@ -19,7 +19,8 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=JetBrains+Mono:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/ux-fixes.css">
     <style>
       :root {
         --ink: #12141a;
@@ -341,17 +342,6 @@
       }
       nav.links a:hover::after, nav.links a:focus-visible::after { transform: scaleX(1); }
 
-      /* preloader */
-      .preloader {
-        position: fixed; inset: 0; z-index: 100;
-        background: var(--paper); display: none; place-items: center;
-        transition: opacity 0.4s ease;
-      }
-      .js .preloader { display: grid; }
-      .preloader.done { opacity: 0; pointer-events: none; }
-      .preloader pre { font-family: var(--mono); font-size: 13.5px; color: var(--muted); margin: 0; text-align: left; }
-      .preloader .ok { color: var(--forest); font-weight: 700; }
-
       /* footer uptime */
       footer.site .uptime { font-family: var(--mono); font-size: 12.5px; }
 
@@ -413,10 +403,11 @@
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
         .hint { display: none; }
-        .preloader, .js .preloader { display: none; }
         .city-halo, .arc, .dot { animation: none; }
       }
     </style>
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site-ui.js" defer></script>
     <script src="assets/contact-form.js" defer></script>
     <script type="application/ld+json">
       {
@@ -455,7 +446,6 @@
 </head>
   <body class="portfolio-page live-mode" data-site-state="live">
     <a class="skip-link" href="#top">Skip to content</a>
-    <div class="preloader" id="preloader" aria-hidden="true"><pre id="bootlog">mounting /lab</pre></div>
     <nav class="spine" aria-label="Page progress">
       <div class="spine-line"><div class="spine-fill"></div></div>
       <a class="spine-node" href="#top" data-target="top"><i></i><span>start</span></a>
@@ -471,13 +461,28 @@
     <header class="site">
       <a class="brand" href="#top"><span class="brand-mark">SN</span><span>Steven Naviaux</span></a>
       <nav class="links" aria-label="Sections">
-        <a href="#signal">Signal</a>
-        <a href="#lab">Lab</a>
+        <a href="#signal" data-nav-target="signal">Signal</a>
+        <a href="#lab" data-nav-target="lab">Lab</a>
         <a href="builds/">Builds</a>
-        <a href="#patterns">Failure modes</a>
-        <a href="#writing">Field notes</a>
-        <a href="#contact">Contact</a>
+        <a href="#patterns" data-nav-target="patterns">Failure modes</a>
+        <a href="#writing" data-nav-target="writing">Field notes</a>
+        <a href="#contact" data-nav-target="contact">Contact</a>
       </nav>
+      <div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/home-closed.html">
+        <button
+          class="mobile-nav-toggle"
+          id="mobile-nav-toggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          hx-get="/partials/nav/home-open.html"
+          hx-target="#mobile-nav-slot"
+          hx-swap="outerHTML"
+        >
+          <span>Menu</span>
+          <span class="mobile-nav-current" data-nav-current>Start</span>
+        </button>
+      </div>
     </header>
 
     <main id="top">
@@ -488,14 +493,17 @@
             <p class="eyebrow">Systems engineer · Builder · Operator</p>
             <h1 id="hero-title">I make messy systems easier to <span class="accent">understand, operate, and trust</span>.</h1>
             <p class="hero-lede">
-              I'm an infrastructure and security engineer, and I believe the way you build things says something about who you are. By day I work identity, cloud, and the operational side of AI at a global financial firm. By night I run a Kubernetes homelab like it's production, and I write about the decisions behind it.
+              I'm an infrastructure and security engineer working across identity, cloud, and the operational side of AI. By night I run a Kubernetes homelab like production and write about the decisions behind it.
             </p>
             <div class="actions">
               <a class="button button-primary" href="https://www.linkedin.com/in/snaviaux/">LinkedIn</a>
               <a class="button" href="https://github.com/snaviaux">GitHub</a>
               <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
             </div>
-            <p class="hint">the background is live. move your cursor, click near a node</p>
+            <p class="hint">
+              <span class="hint-fine">the background is live. move your cursor, click near a node</span>
+              <span class="hint-coarse">the background is live. tap near a node</span>
+            </p>
           </div>
           <div class="statusboard" aria-label="Lab status board">
             <header><span>lab / status</span><span id="clock">--:--</span></header>
@@ -755,35 +763,12 @@
 
     <script>
       (function () {
-        // watchdog: no matter what happens below, the loader dies and content shows
-        const killLoader = () => { const p = document.getElementById("preloader"); if (p) p.remove(); };
-        setTimeout(killLoader, 4000);
         try {
         document.documentElement.classList.add("js");
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const dpr = devicePixelRatio || 1;
         const hasIO = "IntersectionObserver" in window;
-
-        // preloader (once per session; storage access may be blocked, treat as already booted)
-        const pre = document.getElementById("preloader");
-        let booted = false;
-        try { booted = !!sessionStorage.getItem("booted"); } catch (e) { booted = true; }
-        let bootBase = performance.now() + 300;
-        if (reduced || booted) {
-          killLoader();
-        } else {
-          try { sessionStorage.setItem("booted", "1"); } catch (e) {}
-          bootBase = performance.now() + 1300;
-          const log = document.getElementById("bootlog");
-          const bootLines = ["starting agents (12)", "checking backups", "cluster nominal"];
-          let li = 0;
-          const step = () => {
-            log.innerHTML += ' <span class="ok">[ OK ]</span>' + (li < bootLines.length ? "\n" + bootLines[li] : "");
-            if (li < bootLines.length) { li++; setTimeout(step, 170); }
-            else { pre.classList.add("done"); setTimeout(() => pre.remove(), 450); }
-          };
-          setTimeout(step, 200);
-        }
+        const bootBase = performance.now() + (reduced ? 0 : 160);
 
         // scroll reveals
         const revealEls = document.querySelectorAll(".reveal, .reveal-stagger");
@@ -1098,7 +1083,6 @@
         } catch (err) {
           // if anything above failed, fall back to a fully visible static page
           document.documentElement.classList.remove("js");
-          killLoader();
         }
       })();
     </script>

@@ -1,0 +1,24 @@
+<div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/builds-closed.html">
+  <button
+    class="mobile-nav-toggle"
+    id="mobile-nav-toggle"
+    type="button"
+    aria-label="Close build navigation"
+    aria-expanded="true"
+    aria-controls="mobile-nav-panel"
+    hx-get="/partials/nav/builds-closed.html"
+    hx-target="#mobile-nav-slot"
+    hx-swap="outerHTML"
+  >
+    <span>Close</span>
+    <span class="mobile-nav-current" data-nav-current>Builds</span>
+  </button>
+  <nav class="mobile-nav-panel" id="mobile-nav-panel" aria-label="Build sections">
+    <a href="/#lab">Lab</a>
+    <a href="#talos" data-nav-target="talos" data-build-slug="talos">Talos</a>
+    <a href="#openclaw" data-nav-target="openclaw" data-build-slug="openclaw">OpenClaw</a>
+    <a href="#life-hub" data-nav-target="life-hub" data-build-slug="life-hub">Life Hub</a>
+    <a href="#brain" data-nav-target="brain" data-build-slug="brain">Brain</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</div>

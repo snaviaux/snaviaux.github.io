@@ -1,0 +1,15 @@
+<div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/builds-closed.html">
+  <button
+    class="mobile-nav-toggle"
+    id="mobile-nav-toggle"
+    type="button"
+    aria-label="Open build navigation"
+    aria-expanded="false"
+    hx-get="/partials/nav/builds-open.html"
+    hx-target="#mobile-nav-slot"
+    hx-swap="outerHTML"
+  >
+    <span>Menu</span>
+    <span class="mobile-nav-current" data-nav-current>Builds</span>
+  </button>
+</div>
