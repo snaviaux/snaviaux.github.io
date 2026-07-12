@@ -5,11 +5,9 @@
   const mobile = window.matchMedia("(max-width: 680px)");
   const slugs = ["talos", "openclaw", "life-hub", "brain"];
   let selectedBuild = "talos";
-  let nextBuildIntent = null;
   const requestIntents = new WeakMap();
   let activeBuildRequest = null;
   let latestBuildSequence = 0;
-  let scriptedLoad = false;
   let desktopResetPending = false;
   let scrollFrame = 0;
 
@@ -19,6 +17,13 @@
 
   function enhanced() {
     return root.classList.contains("builds-enhanced");
+  }
+
+  function invalidateActiveBuildRequest() {
+    if (!activeBuildRequest) return;
+    latestBuildSequence += 1;
+    activeBuildRequest = null;
+    document.getElementById("build-detail")?.setAttribute("aria-busy", "false");
   }
 
   function createBuildIntent(slug, options) {
@@ -64,11 +69,15 @@
     if (!window.htmx || !slugs.includes(slug)) return;
     const choice = document.querySelector(`.build-index [data-build-slug="${slug}"]`);
     if (!choice) return;
-    nextBuildIntent = createBuildIntent(slug, options);
-    scriptedLoad = true;
-    choice.click();
-    scriptedLoad = false;
-    if (nextBuildIntent?.slug === slug) nextBuildIntent = null;
+    const intent = createBuildIntent(slug, options);
+    const requestEvent = new CustomEvent("portfolio:buildload");
+    requestEvent.portfolioBuildIntent = intent;
+    window.htmx.ajax("GET", choice.getAttribute("hx-get"), {
+      source: choice,
+      event: requestEvent,
+      target: "#build-detail-content",
+      swap: "innerHTML",
+    });
   }
 
   function setEnhancement() {
@@ -87,12 +96,7 @@
       return;
     }
 
-    if (activeBuildRequest) {
-      latestBuildSequence += 1;
-      activeBuildRequest = null;
-      nextBuildIntent = null;
-      document.getElementById("build-detail")?.setAttribute("aria-busy", "false");
-    }
+    invalidateActiveBuildRequest();
 
     if (selectedBuild !== "talos") {
       desktopResetPending = true;
@@ -149,12 +153,8 @@
 
   document.addEventListener("click", (event) => {
     const directChoice = event.target.closest("[data-build-slug][hx-get]");
-    if (directChoice && enhanced() && !scriptedLoad) {
-      nextBuildIntent = createBuildIntent(directChoice.dataset.buildSlug, { history: "push", focus: true });
-    }
-  }, true);
+    if (directChoice && enhanced()) event.preventDefault();
 
-  document.addEventListener("click", (event) => {
     const navChoice = event.target.closest("#mobile-nav-panel [data-build-slug]");
     if (navChoice && enhanced()) {
       event.preventDefault();
@@ -166,10 +166,10 @@
     const trigger = event.detail.elt;
     const slug = trigger?.dataset?.buildSlug;
     if (!slug || !slugs.includes(slug)) return;
-    const intent = nextBuildIntent?.slug === slug
-      ? nextBuildIntent
-      : createBuildIntent(slug, { history: "none", focus: false });
-    nextBuildIntent = null;
+    const triggeringEvent = event.detail.requestConfig?.triggeringEvent;
+    const directClick = triggeringEvent?.type === "click";
+    const intent = triggeringEvent?.portfolioBuildIntent
+      || createBuildIntent(slug, { history: directClick ? "push" : "none", focus: directClick });
     requestIntents.set(event.detail.xhr, intent);
     event.detail.requestConfig.portfolioBuildIntent = intent;
     activeBuildRequest = event.detail.xhr;
@@ -254,6 +254,8 @@
     const nextBuild = slugs.includes(hashBuild) ? hashBuild : "talos";
     if (nextBuild !== selectedBuild) {
       loadBuild(nextBuild, { history: "none", focus: false });
+    } else {
+      invalidateActiveBuildRequest();
     }
   });
   window.addEventListener("scroll", requestDesktopLocation, { passive: true });
