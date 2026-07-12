@@ -23,6 +23,8 @@ Pages are authored in a local `_review/` working area that is intentionally not 
 
 `CNAME` pins the GitHub Pages custom domain; `.nojekyll` disables Jekyll so files are served exactly as committed.
 
+Analytics: all pages load the self-hosted Umami tracker (umami.naviauxlab.com) with Subresource Integrity. When Umami is upgraded in home-ops, `script.js` changes and the `integrity` hash in all three review drafts must be regenerated (`curl -s https://umami.naviauxlab.com/script.js | openssl dgst -sha384 -binary | openssl base64 -A`) or tracking silently stops.
+
 ## Local preview
 
 ```bash
