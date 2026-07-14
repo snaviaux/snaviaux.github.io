@@ -40,20 +40,36 @@ The primary funnel is:
 2. `contact-open` or a LinkedIn `profile-link-click` signals conversation intent.
 3. `contact-form-start` and successful `contact-form-submit` measure form completion.
 
-## Workflow
+## Development
 
-The committed live pages are the source of truth. Make routine changes to them in a dedicated worktree and review the resulting diff.
+The committed pages are the live source of truth. The site has no build step: make changes in a dedicated worktree based on `origin/master`, then validate the exact files that will be published.
 
-`_review/` is an optional ignored scratch area from the original launch workflow. `scripts/promote-review.sh` still supports those drafts, but it replaces all three live HTML files. Run it only after synchronizing the drafts with the current live pages; otherwise it will overwrite newer live-file work. The script asserts expected copy, strips review markers, rewrites canonical URLs, and refuses to ship placeholders under `PROMOTE_STRICT=1`.
-
-`CNAME` pins the GitHub Pages custom domain; `.nojekyll` disables Jekyll so files are served exactly as committed.
-
-Analytics runtime: when Umami is upgraded in home-ops, `script.js` changes and the `integrity` hash in all three live pages must be regenerated (`curl -s https://umami.naviauxlab.com/script.js | openssl dgst -sha384 -binary | openssl base64 -A`) or tracking silently stops. Synchronize optional review drafts too if that workflow is still in use.
-
-## Local preview
+Start a local server from the repository root:
 
 ```bash
 python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
-Then open `http://127.0.0.1:4173/`.
+Open `http://127.0.0.1:4173/` and check both `/` and `/builds/` at 390px and 1440px. Verify the mobile navigation, build partials, contact anchor, console health, touch targets, and horizontal overflow.
+
+Before publishing, run the lightweight repository checks:
+
+```bash
+git diff --check
+node --check assets/contact-form.js
+node --check assets/site-ui.js
+node --check assets/builds-ui.js
+jq empty DESIGN.json
+```
+
+When Umami is upgraded in home-ops, regenerate the `integrity` value in `index.html`, `builds/index.html`, and `404.html`; tracking stops if the hash no longer matches:
+
+```bash
+curl -s https://umami.naviauxlab.com/script.js | openssl dgst -sha384 -binary | openssl base64 -A
+```
+
+## Deployment
+
+GitHub Pages publishes the repository root from `master`. Merging to `master` triggers the `pages-build-deployment` workflow and deploys [www.stevennaviaux.com](https://www.stevennaviaux.com/). `CNAME` pins the custom domain, and `.nojekyll` ensures the static files are served as committed.
+
+After deployment, confirm that the Pages workflow succeeded for the merge commit, then verify `/`, `/builds/`, both social-card images, and the custom 404 on the production domain.
