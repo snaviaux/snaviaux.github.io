@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-14T02:46:59Z",
+  "title": "Design System: StevenNaviaux.com",
+  "extensions": {
+    "colorMeta": {
+      "blueprint-ink": { "role": "neutral", "displayName": "Blueprint Ink", "canonical": "#12141a", "tonalRamp": ["#12141a", "#252933", "#3c424f", "#58616f", "#7a8390", "#a4aab2", "#d1d4d8", "#f1f2f3"] },
+      "console-slate": { "role": "neutral", "displayName": "Console Slate", "canonical": "#58616f", "tonalRamp": ["#15181d", "#2b3038", "#414953", "#58616f", "#7b838d", "#a4a9af", "#ced1d4", "#f0f1f2"] },
+      "runbook-paper": { "role": "neutral", "displayName": "Runbook Paper", "canonical": "#f6f4ef", "tonalRamp": ["#26241f", "#48443c", "#6d675b", "#948d7f", "#bab3a7", "#d8d3ca", "#ebe8e1", "#f6f4ef"] },
+      "clean-sheet": { "role": "neutral", "displayName": "Clean Sheet", "canonical": "#ffffff", "tonalRamp": ["#242424", "#454545", "#686868", "#8f8f8f", "#b5b5b5", "#d5d5d5", "#eeeeee", "#ffffff"] },
+      "drafting-line": { "role": "neutral", "displayName": "Drafting Line", "canonical": "#d9d3c8", "tonalRamp": ["#26231f", "#49443d", "#6d665c", "#928a7f", "#b6afa5", "#d9d3c8", "#e9e6e0", "#f7f5f2"] },
+      "hardware-edge": { "role": "neutral", "displayName": "Hardware Edge", "canonical": "#b9afa1", "tonalRamp": ["#25211d", "#473f37", "#695f54", "#8d8173", "#b9afa1", "#d2cbc2", "#e5e1dc", "#f5f3f0"] },
+      "signal-forest": { "role": "primary", "displayName": "Signal Forest", "canonical": "#285b48", "tonalRamp": ["#0c1f18", "#153527", "#204b39", "#2b624b", "#4c806b", "#7ca493", "#b5cbbf", "#e7f0eb"] },
+      "rack-charcoal": { "role": "primary", "displayName": "Rack Charcoal", "canonical": "#18201f", "tonalRamp": ["#0e1212", "#18201f", "#2d3735", "#47524f", "#68736f", "#929b97", "#c3c8c6", "#eef0ef"] },
+      "warm-band": { "role": "neutral", "displayName": "Warm Band", "canonical": "#efece4", "tonalRamp": ["#282620", "#4b473e", "#706a5e", "#958e80", "#bbb4a8", "#d9d4cb", "#efece4", "#faf9f7"] },
+      "terminal-signal": { "role": "support", "displayName": "Terminal Signal", "canonical": "#8fd4b4", "tonalRamp": ["#153126", "#26513e", "#3b7358", "#599575", "#8fd4b4", "#afe3cb", "#d1f0e1", "#effaf5"] },
+      "live-green": { "role": "success", "displayName": "Live Green", "canonical": "#2f9e6e", "tonalRamp": ["#0d2d1f", "#155038", "#1e724f", "#2f9e6e", "#58b98d", "#87d0ad", "#bce5d0", "#e8f7ef"] },
+      "incident-red": { "role": "danger", "displayName": "Incident Red", "canonical": "#c0392b", "tonalRamp": ["#35100c", "#5c1a14", "#85251c", "#c0392b", "#d86659", "#e99990", "#f2c6c1", "#faecea"] },
+      "terminal-ink": { "role": "support", "displayName": "Terminal Ink", "canonical": "#cfe8db", "tonalRamp": ["#203129", "#3c574a", "#5f806f", "#87aa98", "#b1d0bf", "#cfe8db", "#e4f2eb", "#f5faf7"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "One dominant page-opening argument." },
+      "headline": { "displayName": "Headline", "purpose": "Major section propositions." },
+      "title": { "displayName": "Title", "purpose": "Build and component titles." },
+      "body": { "displayName": "Body", "purpose": "Technical explanation capped near 70 characters per line." },
+      "label": { "displayName": "Operating Label", "purpose": "Status, evidence, and structural annotations." }
+    },
+    "shadows": [
+      { "name": "ambient-lift", "value": "0 18px 45px rgba(18, 20, 26, 0.09)", "purpose": "Featured surfaces and interactive hover state." },
+      { "name": "selected-build-ring", "value": "0 0 0 1px #285b48", "purpose": "Selected chooser item reinforcement." }
+    ],
+    "motion": [
+      { "name": "state-fast", "value": "150ms cubic-bezier(0.25, 1, 0.5, 1)", "purpose": "Control and partial state feedback." },
+      { "name": "reveal", "value": "550ms ease", "purpose": "Optional content reveal, removed under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "680px" },
+      { "name": "compact", "value": "980px" },
+      { "name": "spine-hidden", "value": "1180px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The next meaningful step toward evidence or conversation.",
+      "html": "<a class=\"ds-button-primary\" href=\"#\">Start a conversation</a>",
+      "css": ".ds-button-primary { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:10px 18px; border:1px solid var(--charcoal, #18201f); border-radius:8px; background:var(--charcoal, #18201f); color:#fff; font:800 15px/1.2 Inter, sans-serif; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease; } .ds-button-primary:hover { transform:translateY(-2px); box-shadow:0 18px 45px rgba(18,20,26,.09); } .ds-button-primary:focus-visible { outline:3px solid var(--forest, #285b48); outline-offset:3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A supporting destination that remains clearly actionable.",
+      "html": "<a class=\"ds-button-secondary\" href=\"#\">Read the evidence</a>",
+      "css": ".ds-button-secondary { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:10px 18px; border:1px solid var(--line-strong, #b9afa1); border-radius:8px; background:#fff; color:var(--ink, #12141a); font:800 15px/1.2 Inter, sans-serif; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease; } .ds-button-secondary:hover { transform:translateY(-2px); box-shadow:0 18px 45px rgba(18,20,26,.09); } .ds-button-secondary:focus-visible { outline:3px solid var(--forest, #285b48); outline-offset:3px; }"
+    },
+    {
+      "name": "Evidence Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A bordered proof surface that stays flat until interactive.",
+      "html": "<article class=\"ds-card\"><span>BUILD 01</span><h3>Talos Kubernetes Homelab</h3><p>Auditable infrastructure with a tested recovery path.</p></article>",
+      "css": ".ds-card { padding:26px; border:1px solid var(--line, #d9d3c8); border-radius:10px; background:var(--panel, #fff); color:var(--ink, #12141a); font-family:Inter, sans-serif; } .ds-card span { color:var(--forest, #285b48); font:700 12px/1.2 'JetBrains Mono', monospace; letter-spacing:.1em; } .ds-card h3 { margin:14px 0 10px; font-size:21px; line-height:1.2; } .ds-card p { margin:0; color:var(--muted, #58616f); line-height:1.55; } .ds-card:focus-within { outline:3px solid var(--forest, #285b48); outline-offset:3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "A clear labeled field with a strong keyboard state.",
+      "html": "<label class=\"ds-field\"><span>Email</span><input type=\"email\" autocomplete=\"email\"></label>",
+      "css": ".ds-field { display:grid; gap:6px; color:var(--ink, #12141a); font:750 14px/1.4 Inter, sans-serif; } .ds-field input { width:100%; padding:10px 12px; border:1px solid var(--line-strong, #b9afa1); border-radius:7px; background:#fff; color:var(--ink, #12141a); font:400 16px/1.55 Inter, sans-serif; } .ds-field input:focus-visible { outline:3px solid var(--forest, #285b48); outline-offset:3px; }"
+    },
+    {
+      "name": "Evidence Chip",
+      "kind": "chip",
+      "description": "A compact classifier for technology or evidence type.",
+      "html": "<span class=\"ds-chip\">GitOps</span>",
+      "css": ".ds-chip { display:inline-flex; align-items:center; min-height:28px; padding:5px 10px; border:1px solid var(--line-strong, #b9afa1); border-radius:999px; color:var(--ink, #12141a); font:600 12px/1.2 'JetBrains Mono', monospace; }"
+    },
+    {
+      "name": "Mobile Navigation Toggle",
+      "kind": "nav",
+      "description": "A touch-safe inline navigation control with current-location context.",
+      "html": "<button class=\"ds-nav-toggle\" type=\"button\"><span>Menu</span><small>Builds</small></button>",
+      "css": ".ds-nav-toggle { min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 12px; border:1px solid var(--line-strong, #b9afa1); border-radius:8px; background:var(--paper, #f6f4ef); color:var(--ink, #12141a); font:700 14px/1 'JetBrains Mono', monospace; } .ds-nav-toggle small { color:var(--forest, #285b48); font-size:11px; } .ds-nav-toggle:focus-visible { outline:3px solid var(--forest, #285b48); outline-offset:3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Systems Field Manual",
+    "overview": "The site feels like a well-used operating manual laid open beside a live system. Warm paper, precise rules, restrained forest signals, and small monospaced annotations create technical character without terminal cosplay. Every visual device helps explain, operate, or trust the work.",
+    "keyCharacteristics": [
+      "Warm, paper-like surfaces with dark working ink.",
+      "One restrained forest signal for state, evidence, and emphasis.",
+      "Strong typographic hierarchy with compact monospaced annotations.",
+      "Flat-by-default surfaces that lift only when interactive.",
+      "Touch-safe, progressively enhanced interactions with durable fallbacks."
+    ],
+    "rules": [
+      { "name": "The Signal Rule", "body": "Signal Forest identifies meaning or state. It is never decorative fill spread across a section.", "section": "colors" },
+      { "name": "The Warm Neutral Rule", "body": "Pure black and cold gray page backgrounds are prohibited. Every neutral belongs to the field-manual atmosphere.", "section": "colors" },
+      { "name": "The Mono Earns Its Place Rule", "body": "Monospace must communicate status, structure, evidence, or machine context. It is forbidden as a costume for ordinary prose.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "If every card is floating, none of them carries meaning. Resting content uses borders; elevation indicates feature or interaction.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do pair important claims with outcomes, public writing, sanitized artifacts, or a request-walkthrough action.",
+      "Do keep Signal Forest rare and semantic.",
+      "Do preserve 44px touch targets, visible keyboard focus, reduced-motion behavior, and useful no-JavaScript fallbacks.",
+      "Do let large type make one clear argument while smaller evidence answers why it should be trusted.",
+      "Do use the exact shared tokens before introducing a new color, radius, or shadow."
+    ],
+    "donts": [
+      "Don't use glossy SaaS marketing that substitutes polish for evidence.",
+      "Don't use generic AI hype, glowing gradients, glassmorphism, or vague transformation claims.",
+      "Don't build resume-wall layouts that force visitors to decode chronology before understanding the work.",
+      "Don't use terminal cosplay or developer aesthetics as decoration.",
+      "Don't present hollow dashboard metrics or vanity counters that cannot explain what changed.",
+      "Don't expose hostnames, network paths, secrets, or private dashboards to manufacture credibility.",
+      "Don't add side-stripe accents, gradient text, nested cards, or modal-first interactions."
+    ]
+  }
+}

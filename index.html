@@ -11,16 +11,20 @@
     <meta property="og:title" content="Steven Naviaux | Systems Craft">
     <meta property="og:description" content="Steven Naviaux is a systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, and agent operations.">
     <meta property="og:url" content="https://www.stevennaviaux.com/">
-    <meta property="og:image" content="https://www.stevennaviaux.com/assets/headshot.png">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://www.stevennaviaux.com/assets/og-home.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Steven Naviaux: I make messy systems easier to understand, operate, and trust.">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Steven Naviaux | Systems Craft">
     <meta name="twitter:description" content="Steven Naviaux is a systems engineer focused on identity, cloud infrastructure, and the operational layer of AI deployment: governance, cost discipline, observability, and agent operations.">
-    <meta name="twitter:image" content="https://www.stevennaviaux.com/assets/headshot.png">
+    <meta name="twitter:image" content="https://www.stevennaviaux.com/assets/og-home.png">
+    <meta name="twitter:image:alt" content="Steven Naviaux: I make messy systems easier to understand, operate, and trust.">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/ux-fixes.css">
+    <link rel="stylesheet" href="/assets/ux-fixes.css?v=20260713">
     <style>
       :root {
         --ink: #12141a;
@@ -408,7 +412,7 @@
     </style>
     <script src="/assets/htmx.min.js" defer></script>
     <script src="/assets/site-ui.js" defer></script>
-    <script src="assets/contact-form.js" defer></script>
+    <script src="assets/contact-form.js?v=20260713" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -442,7 +446,7 @@
         ]
       }
     </script>
-    <script defer src="https://umami.naviauxlab.com/script.js" data-website-id="bd5ea328-8098-4c85-b3f9-f597d5456130" data-domains="www.stevennaviaux.com" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous"></script>
+    <script defer src="https://umami.naviauxlab.com/script.js" data-website-id="bd5ea328-8098-4c85-b3f9-f597d5456130" data-domains="www.stevennaviaux.com" data-exclude-search="true" data-exclude-hash="true" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous"></script>
 </head>
   <body class="portfolio-page live-mode" data-site-state="live">
     <a class="skip-link" href="#top">Skip to content</a>
@@ -454,7 +458,7 @@
       <a class="spine-node" href="#patterns" data-target="patterns"><i></i><span>failure modes</span></a>
       <a class="spine-node" href="#footprint" data-target="footprint"><i></i><span>footprint</span></a>
       <a class="spine-node" href="#writing" data-target="writing"><i></i><span>field notes</span></a>
-      <a class="spine-node" href="#contact" data-target="contact"><i></i><span>contact</span></a>
+      <a class="spine-node" href="#contact" data-target="contact" data-umami-event="contact-open" data-umami-event-location="home-spine"><i></i><span>contact</span></a>
     </nav>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -463,10 +467,10 @@
       <nav class="links" aria-label="Sections">
         <a href="#signal" data-nav-target="signal">Signal</a>
         <a href="#lab" data-nav-target="lab">Lab</a>
-        <a href="builds/">Builds</a>
+        <a href="builds/" data-umami-event="builds-open" data-umami-event-location="home-header">Builds</a>
         <a href="#patterns" data-nav-target="patterns">Failure modes</a>
         <a href="#writing" data-nav-target="writing">Field notes</a>
-        <a href="#contact" data-nav-target="contact">Contact</a>
+        <a href="#contact" data-nav-target="contact" data-umami-event="contact-open" data-umami-event-location="home-header">Contact</a>
       </nav>
       <div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/home-closed.html">
         <button
@@ -496,9 +500,9 @@
               I'm an infrastructure and security engineer working across identity, cloud, and the operational side of AI. By night I run a Kubernetes homelab like production and write about the decisions behind it.
             </p>
             <div class="actions">
-              <a class="button button-primary" href="https://www.linkedin.com/in/snaviaux/">LinkedIn</a>
-              <a class="button" href="https://github.com/snaviaux">GitHub</a>
-              <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
+              <a class="button button-primary" href="#contact" data-umami-event="contact-open" data-umami-event-location="home-hero">Start a conversation</a>
+              <a class="button" href="https://github.com/snaviaux" data-umami-event="profile-link-click" data-umami-event-destination="github" data-umami-event-location="home-hero">GitHub</a>
+              <a class="button" href="https://steven.naviauxlab.com/" data-umami-event="profile-link-click" data-umami-event-destination="naviauxlab" data-umami-event-location="home-hero">NaviauxLab</a>
             </div>
             <p class="hint">
               <span class="hint-fine">the background is live. move your cursor, click near a node</span>
@@ -573,12 +577,13 @@
           </div>
           <div class="grid2 reveal-stagger">
             <article class="card">
-              <img class="shot" src="assets/lab-infra.png" alt="Infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status.">
+              <img class="shot" src="assets/lab-infra.png" alt="Infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status." width="1140" height="692" loading="lazy" decoding="async">
               <span class="plabel">Home infrastructure</span>
               <h3>Talos Kubernetes Homelab</h3>
               <p>Immutable Talos Linux with no SSH surface, every change through Git (300+ merged pull requests), secrets encrypted in the repo, monitoring, backups, and public ingress with zero forwarded ports.</p>
               <p class="outcome">300+ PRs of auditable change history · zero forwarded ports · restore drill passed</p>
               <ul class="tags"><li>Kubernetes</li><li>Talos</li><li>GitOps</li><li>Secrets</li><li>Observability</li></ul>
+              <a class="quiet-link card-proof-link" href="builds/#talos" data-umami-event="builds-open" data-umami-event-location="home-lab-card" data-umami-event-build="talos">Read the Talos build</a>
             </article>
             <article class="card">
               <span class="plabel">Agent operations</span>
@@ -586,26 +591,29 @@
               <p>More than a dozen agents on the open-source platform run as real infrastructure on my cluster: persistent workspaces, an execution policy with WIP caps, and Mission Control, the task-state dashboard I built as a sidecar. The demo is easy. The operating model is the product.</p>
               <p class="outcome">a dozen-plus agents in daily operation · audited across six failure modes with cost + latency telemetry</p>
               <ul class="tags"><li>Agents</li><li>Workspaces</li><li>MCP</li><li>Task state</li></ul>
+              <a class="quiet-link card-proof-link" href="builds/#openclaw" data-umami-event="builds-open" data-umami-event-location="home-lab-card" data-umami-event-build="openclaw">Read the OpenClaw build</a>
             </article>
             <article class="card">
-              <img class="shot" src="assets/lab-triggers.png" alt="Mission Control trigger events view showing Life Hub intelligence signals and collector status.">
+              <img class="shot" src="assets/lab-triggers.png" alt="Mission Control trigger events view showing Life Hub intelligence signals and collector status." width="1140" height="492" loading="lazy" decoding="async">
               <span class="plabel">Personal intelligence</span>
               <h3>Life Hub</h3>
               <p>A personal operating picture run like a service: twenty-odd collectors on a cadence, personal baselines instead of hardcoded thresholds, and triggers that open action items. Nine AI advisors interpret the results, and their disagreements are usually the most useful signal.</p>
               <p class="outcome">in daily use · advisor consensus auto-escalates to action items</p>
               <ul class="tags"><li>Signals</li><li>Forecasts</li><li>Advisors</li></ul>
+              <a class="quiet-link card-proof-link" href="builds/#life-hub" data-umami-event="builds-open" data-umami-event-location="home-lab-card" data-umami-event-build="life-hub">Read the Life Hub build</a>
             </article>
             <article class="card">
-              <img class="shot" src="assets/lab-brain.png" alt="Semantic thought search interface with topic filters and search controls.">
+              <img class="shot" src="assets/lab-brain.png" alt="Semantic thought search interface with topic filters and search controls." width="1140" height="512" loading="lazy" decoding="async">
               <span class="plabel">Memory layer</span>
               <h3>Life Hub Brain</h3>
               <p>Durable context, semantic search, and AI-accessible memory on pgvector. It feeds a wider practice: 4,000+ interlinked notes operated by more than eighty custom Claude Code skills. Not a demo; it runs my week.</p>
               <p class="outcome">4,000+ interlinked notes retrievable by agents over MCP · survived one full rebuild</p>
               <ul class="tags"><li>Memory</li><li>Semantic search</li><li>MCP</li></ul>
+              <a class="quiet-link card-proof-link" href="builds/#brain" data-umami-event="builds-open" data-umami-event-location="home-lab-card" data-umami-event-build="brain">Read the Life Hub Brain build</a>
             </article>
           </div>
           <div class="actions reveal" style="margin-top: 28px;">
-            <a class="button button-primary" href="builds/">Read selected builds</a>
+            <a class="button button-primary" href="builds/" data-umami-event="builds-open" data-umami-event-location="home-lab">Read selected builds</a>
           </div>
         </div>
       </section>
@@ -690,12 +698,12 @@
             <p>I write about the systems I actually run. The long tail after launch is where a system either earns trust or loses it, and it's where most of my learning has come from.</p>
           </div>
           <div class="grid3 reveal-stagger">
-            <a class="writing-card" href="https://steven.naviauxlab.com/blog/i-built-9-ai-advisors-that-argue-about-my-life-data/"><span>AI systems</span><strong>I Built 9 AI Advisors That Argue About My Life Data</strong><small>What happens when a dashboard stops reporting and starts arguing.</small></a>
-            <a class="writing-card" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-predict-not-just-report/"><span>Prediction</span><strong>Teaching My Dashboard to Predict, Not Just Report</strong><small>Making the dashboard earn its screen time.</small></a>
-            <a class="writing-card" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-think-across-modules/"><span>Architecture</span><strong>Teaching My Dashboard to Think Across Modules</strong><small>The pattern is context sharing. The trap is pretending modules talk when they do not.</small></a>
-            <a class="writing-card" href="https://steven.naviauxlab.com/blog/shipping-fast-on-a-side-project-from-10-minute-ci-to-instant-deploys/"><span>Delivery</span><strong>From 10-Minute CI to Instant Deploys</strong><small>Less waiting, tighter feedback, fewer excuses.</small></a>
-            <a class="writing-card" href="https://steven.naviauxlab.com/blog/building-a-9-agent-ai-team-on-kubernetes-the-complete-guide/"><span>Agents</span><strong>Building a 9-Agent AI Team on Kubernetes</strong><small>Agent demos are cheap. Agent operations are where the work starts.</small></a>
-            <a class="writing-card" href="https://steven.naviauxlab.com/"><span>Archive</span><strong>Read more at NaviauxLab</strong><small>The field notes live there.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/i-built-9-ai-advisors-that-argue-about-my-life-data/" data-umami-event="field-note-open" data-umami-event-note="ai-advisors" data-umami-event-topic="ai-systems"><span>AI systems</span><strong>I Built 9 AI Advisors That Argue About My Life Data</strong><small>What happens when a dashboard stops reporting and starts arguing.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-predict-not-just-report/" data-umami-event="field-note-open" data-umami-event-note="dashboard-prediction" data-umami-event-topic="prediction"><span>Prediction</span><strong>Teaching My Dashboard to Predict, Not Just Report</strong><small>Making the dashboard earn its screen time.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-think-across-modules/" data-umami-event="field-note-open" data-umami-event-note="cross-module-context" data-umami-event-topic="architecture"><span>Architecture</span><strong>Teaching My Dashboard to Think Across Modules</strong><small>The pattern is context sharing. The trap is pretending modules talk when they do not.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/shipping-fast-on-a-side-project-from-10-minute-ci-to-instant-deploys/" data-umami-event="field-note-open" data-umami-event-note="instant-deploys" data-umami-event-topic="delivery"><span>Delivery</span><strong>From 10-Minute CI to Instant Deploys</strong><small>Less waiting, tighter feedback, fewer excuses.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/blog/building-a-9-agent-ai-team-on-kubernetes-the-complete-guide/" data-umami-event="field-note-open" data-umami-event-note="agent-team" data-umami-event-topic="agents"><span>Agents</span><strong>Building a 9-Agent AI Team on Kubernetes</strong><small>Agent demos are cheap. Agent operations are where the work starts.</small></a>
+            <a class="writing-card" href="https://steven.naviauxlab.com/" data-umami-event="field-note-open" data-umami-event-note="archive" data-umami-event-topic="archive"><span>Archive</span><strong>Read more at NaviauxLab</strong><small>The field notes live there.</small></a>
           </div>
         </div>
       </section>
@@ -703,15 +711,15 @@
       <section class="block contact" id="contact">
         <div class="inner">
           <div class="section-head reveal" data-num="06">
-            <img class="contact-headshot" src="assets/headshot.png" alt="Steven Naviaux" width="112" height="112">
+            <img class="contact-headshot" src="assets/headshot.png" alt="Steven Naviaux" width="112" height="112" loading="lazy" decoding="async">
             <p class="eyebrow">Contact</p>
             <h2>Let's build something that holds.</h2>
             <p>Hiring, a project, or just a hard problem to compare notes on: if it touches AI deployment in a regulated environment, identity plumbing, or platform operations that have to hold, I want to hear about it. Rough edges and half-formed questions welcome. And if you think I got something wrong on this site, tell me that too.</p>
           </div>
           <div class="contact-links reveal">
-            <a class="button button-primary" href="https://www.linkedin.com/in/snaviaux/">LinkedIn</a>
-            <a class="button" href="https://github.com/snaviaux">GitHub</a>
-            <a class="button" href="https://steven.naviauxlab.com/">NaviauxLab</a>
+            <a class="button button-primary" href="https://www.linkedin.com/in/snaviaux/" data-umami-event="profile-link-click" data-umami-event-destination="linkedin" data-umami-event-location="home-contact">Message me on LinkedIn</a>
+            <a class="button" href="https://github.com/snaviaux" data-umami-event="profile-link-click" data-umami-event-destination="github" data-umami-event-location="home-contact">GitHub</a>
+            <a class="button" href="https://steven.naviauxlab.com/" data-umami-event="profile-link-click" data-umami-event-destination="naviauxlab" data-umami-event-location="home-contact">NaviauxLab</a>
           </div>
           <form
             class="lead-form reveal"
