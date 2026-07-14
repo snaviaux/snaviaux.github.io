@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Steven Naviaux, Selected Builds</title>
+  <desc id="description">A field-manual style social card for four selected infrastructure and AI builds.</desc>
+  <rect width="1200" height="630" fill="#f6f4ef"/>
+  <path d="M0 92H1200M0 548H1200" stroke="#d9d3c8" stroke-width="2"/>
+  <rect x="64" y="42" width="44" height="44" rx="9" fill="#18201f"/>
+  <text x="86" y="70" text-anchor="middle" fill="#f6f4ef" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700">SN</text>
+  <text x="124" y="70" fill="#12141a" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="800">Steven Naviaux</text>
+  <text x="64" y="164" fill="#285b48" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700" letter-spacing="3">SELECTED BUILDS</text>
+  <text x="64" y="246" fill="#12141a" font-family="Inter, Arial, sans-serif" font-size="67" font-weight="850" letter-spacing="-2">
+    <tspan x="64" dy="0">The longer version</tspan>
+    <tspan x="64" dy="74">of the lab.</tspan>
+  </text>
+  <text x="64" y="420" fill="#58616f" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="500">Working systems. Measurable outcomes. Private by design.</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="700">
+    <rect x="64" y="468" width="156" height="44" rx="8" fill="#ffffff" stroke="#b9afa1"/>
+    <text x="142" y="495" text-anchor="middle" fill="#12141a">01 · TALOS</text>
+    <rect x="232" y="468" width="184" height="44" rx="8" fill="#ffffff" stroke="#b9afa1"/>
+    <text x="324" y="495" text-anchor="middle" fill="#12141a">02 · OPENCLAW</text>
+    <rect x="428" y="468" width="170" height="44" rx="8" fill="#ffffff" stroke="#b9afa1"/>
+    <text x="513" y="495" text-anchor="middle" fill="#12141a">03 · LIFE HUB</text>
+    <rect x="610" y="468" width="164" height="44" rx="8" fill="#18201f" stroke="#18201f"/>
+    <text x="692" y="495" text-anchor="middle" fill="#f6f4ef">04 · MEMORY</text>
+  </g>
+  <g fill="none" stroke="#d9d3c8" stroke-width="2">
+    <path d="M894 164H1118V388H894Z"/>
+    <path d="M926 204H1086M926 246H1086M926 288H1032M926 330H1062"/>
+  </g>
+  <circle cx="1118" cy="164" r="8" fill="#285b48"/>
+  <text x="64" y="580" fill="#58616f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">stevennaviaux.com/builds</text>
+  <text x="1136" y="580" text-anchor="end" fill="#285b48" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">receipts before claims</text>
+</svg>

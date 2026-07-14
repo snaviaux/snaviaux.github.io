@@ -11,16 +11,20 @@
     <meta property="og:title" content="Steven Naviaux | Selected Builds">
     <meta property="og:description" content="Selected independent infrastructure and AI builds by Steven Naviaux, including platform operations, agent workflows, personal intelligence, and AI memory systems.">
     <meta property="og:url" content="https://www.stevennaviaux.com/builds/">
-    <meta property="og:image" content="https://www.stevennaviaux.com/assets/headshot.png">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://www.stevennaviaux.com/assets/og-builds.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Steven Naviaux selected builds: working systems, measurable outcomes, private by design.">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Steven Naviaux | Selected Builds">
     <meta name="twitter:description" content="Selected independent infrastructure and AI builds by Steven Naviaux, including platform operations, agent workflows, personal intelligence, and AI memory systems.">
-    <meta name="twitter:image" content="https://www.stevennaviaux.com/assets/headshot.png">
+    <meta name="twitter:image" content="https://www.stevennaviaux.com/assets/og-builds.png">
+    <meta name="twitter:image:alt" content="Steven Naviaux selected builds: working systems, measurable outcomes, private by design.">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/ux-fixes.css">
+    <link rel="stylesheet" href="/assets/ux-fixes.css?v=20260713">
     <style>
       :root {
         --ink: #12141a;
@@ -225,7 +229,7 @@
     <script src="/assets/htmx.min.js" defer></script>
     <script src="/assets/site-ui.js" defer></script>
     <script src="/assets/builds-ui.js" defer></script>
-    <script defer src="https://umami.naviauxlab.com/script.js" data-website-id="bd5ea328-8098-4c85-b3f9-f597d5456130" data-domains="www.stevennaviaux.com" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous"></script>
+    <script defer src="https://umami.naviauxlab.com/script.js" data-website-id="bd5ea328-8098-4c85-b3f9-f597d5456130" data-domains="www.stevennaviaux.com" data-exclude-search="true" data-exclude-hash="true" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous"></script>
 </head>
   <body class="portfolio-page build-page live-mode" data-site-state="live">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -237,11 +241,11 @@
       </a>
       <nav class="links" aria-label="Build sections">
         <a href="../#lab">Lab</a>
-        <a href="#talos" data-nav-target="talos">Talos</a>
-        <a href="#openclaw" data-nav-target="openclaw">OpenClaw</a>
-        <a href="#life-hub" data-nav-target="life-hub">Life Hub</a>
-        <a href="#brain" data-nav-target="brain">Brain</a>
-        <a href="../#contact">Contact</a>
+        <a href="#talos" data-nav-target="talos" data-umami-event="build-select" data-umami-event-build="talos" data-umami-event-source="builds-header">Talos</a>
+        <a href="#openclaw" data-nav-target="openclaw" data-umami-event="build-select" data-umami-event-build="openclaw" data-umami-event-source="builds-header">OpenClaw</a>
+        <a href="#life-hub" data-nav-target="life-hub" data-umami-event="build-select" data-umami-event-build="life-hub" data-umami-event-source="builds-header">Life Hub</a>
+        <a href="#brain" data-nav-target="brain" data-umami-event="build-select" data-umami-event-build="brain" data-umami-event-source="builds-header">Brain</a>
+        <a href="../#contact" data-umami-event="contact-open" data-umami-event-location="builds-header">Contact</a>
       </nav>
       <div class="mobile-nav" id="mobile-nav-slot" data-close-url="/partials/nav/builds-closed.html">
         <button
@@ -271,6 +275,9 @@
             href="#talos"
             data-build-choice
             data-build-slug="talos"
+            data-umami-event="build-select"
+            data-umami-event-build="talos"
+            data-umami-event-source="build-index"
             hx-get="/partials/builds/talos.html"
             hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
             hx-target="#build-detail-content"
@@ -285,6 +292,9 @@
             href="#openclaw"
             data-build-choice
             data-build-slug="openclaw"
+            data-umami-event="build-select"
+            data-umami-event-build="openclaw"
+            data-umami-event-source="build-index"
             hx-get="/partials/builds/openclaw.html"
             hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
             hx-target="#build-detail-content"
@@ -299,6 +309,9 @@
             href="#life-hub"
             data-build-choice
             data-build-slug="life-hub"
+            data-umami-event="build-select"
+            data-umami-event-build="life-hub"
+            data-umami-event-source="build-index"
             hx-get="/partials/builds/life-hub.html"
             hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
             hx-target="#build-detail-content"
@@ -313,6 +326,9 @@
             href="#brain"
             data-build-choice
             data-build-slug="brain"
+            data-umami-event="build-select"
+            data-umami-event-build="brain"
+            data-umami-event-source="build-index"
             hx-get="/partials/builds/brain.html"
             hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
             hx-target="#build-detail-content"
@@ -330,6 +346,9 @@
               class="button button-primary"
               href="#talos"
               data-build-slug="talos"
+              data-umami-event="build-select"
+              data-umami-event-build="talos"
+              data-umami-event-source="builds-hero"
               hx-get="/partials/builds/talos.html"
               hx-trigger="click[document.documentElement.classList.contains('builds-enhanced')]"
               hx-target="#build-detail-content"
@@ -341,7 +360,7 @@
           <p class="hero-lede">
             The homepage gives the short version. These systems show the operating model behind the demos: what they are, what they prove, and what changed after the first clean demo stopped being interesting.
           </p>
-          <a class="quiet-link" href="https://steven.naviauxlab.com/">Visit NaviauxLab</a>
+          <a class="quiet-link" href="https://steven.naviauxlab.com/" data-umami-event="profile-link-click" data-umami-event-destination="naviauxlab" data-umami-event-location="builds-hero">Visit NaviauxLab</a>
         </div>
       </section>
 
@@ -357,7 +376,7 @@
                 A small Kubernetes environment that behaves like real infrastructure because it has to. Immutable Talos Linux with no SSH surface, storage, ingress, secrets encrypted in Git, dashboards, backups, updates, and the occasional reminder that the network does not care about my intentions. The Git history is the receipt: 300+ merged pull requests.
               </p>
             </div>
-            <img class="build-shot" src="../assets/lab-infra.png" alt="Cropped infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status.">
+            <img class="build-shot" src="../assets/lab-infra.png" alt="Cropped infrastructure dashboard showing cluster health, nodes, pods, namespaces, and ingress status." width="1140" height="692" loading="lazy" decoding="async">
           </div>
           <div class="build-body reveal">
             <article>
@@ -392,6 +411,13 @@
             <li>Secrets</li>
             <li>Observability</li>
           </ul>
+          <div class="build-receipts" role="region" aria-label="Talos receipts">
+            <p class="build-receipts-label">Receipts</p>
+            <p>Git history, restore notes, and runbooks stay private by design. I can walk through them without exposing the lab.</p>
+            <div class="build-receipt-links">
+              <a class="button button-primary" href="../#contact" data-umami-event="contact-open" data-umami-event-location="build-receipts" data-umami-event-build="talos">Request a walkthrough</a>
+            </div>
+          </div>
         </div>
         </div>
       </section>
@@ -450,6 +476,14 @@
             <li>Task state</li>
             <li>Handoffs</li>
           </ul>
+          <div class="build-receipts" role="region" aria-label="OpenClaw receipts">
+            <p class="build-receipts-label">Receipts</p>
+            <p>The operating model is public; task-state, cost, and latency views stay private.</p>
+            <div class="build-receipt-links">
+              <a class="quiet-link" href="https://steven.naviauxlab.com/blog/building-a-9-agent-ai-team-on-kubernetes-the-complete-guide/" data-umami-event="build-receipt-open" data-umami-event-build="openclaw" data-umami-event-receipt="agent-operations-guide">Read the agent-operations guide</a>
+              <a class="button button-primary" href="../#contact" data-umami-event="contact-open" data-umami-event-location="build-receipts" data-umami-event-build="openclaw">Request a walkthrough</a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -463,7 +497,7 @@
                 A personal operating picture that tries to answer a better question than "what happened." It pulls signals into one place so the system can ask what changed, what matters, and what deserves attention next.
               </p>
             </div>
-            <img class="build-shot" src="../assets/lab-triggers.png" alt="Cropped Mission Control trigger events view showing Life Hub intelligence signals and collector status.">
+            <img class="build-shot" src="../assets/lab-triggers.png" alt="Cropped Mission Control trigger events view showing Life Hub intelligence signals and collector status." width="1140" height="492" loading="lazy" decoding="async">
           </div>
           <div class="build-body reveal">
             <article>
@@ -497,6 +531,16 @@
             <li>Advisors</li>
             <li>Personal ops</li>
           </ul>
+          <div class="build-receipts" role="region" aria-label="Life Hub receipts">
+            <p class="build-receipts-label">Receipts</p>
+            <p>Three public field notes show the advisor, forecasting, and cross-module layers.</p>
+            <div class="build-receipt-links">
+              <a class="quiet-link" href="https://steven.naviauxlab.com/blog/i-built-9-ai-advisors-that-argue-about-my-life-data/" data-umami-event="build-receipt-open" data-umami-event-build="life-hub" data-umami-event-receipt="nine-advisor-system">See the nine-advisor system</a>
+              <a class="quiet-link" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-predict-not-just-report/" data-umami-event="build-receipt-open" data-umami-event-build="life-hub" data-umami-event-receipt="forecasting-layer">See the forecasting layer</a>
+              <a class="quiet-link" href="https://steven.naviauxlab.com/blog/teaching-my-dashboard-to-think-across-modules/" data-umami-event="build-receipt-open" data-umami-event-build="life-hub" data-umami-event-receipt="cross-module-architecture">See the cross-module architecture</a>
+              <a class="button button-primary" href="../#contact" data-umami-event="contact-open" data-umami-event-location="build-receipts" data-umami-event-build="life-hub">Request a walkthrough</a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -510,7 +554,7 @@
                 A memory layer for durable context, semantic search, and AI-readable knowledge. It starts from a simple complaint: useful assistants need better raw material than a blank chat box and whatever I remembered to paste.
               </p>
             </div>
-            <img class="build-shot" src="../assets/lab-brain.png" alt="Cropped semantic thought search interface with topic filters and search controls.">
+            <img class="build-shot" src="../assets/lab-brain.png" alt="Cropped semantic thought search interface with topic filters and search controls." width="1140" height="512" loading="lazy" decoding="async">
           </div>
           <div class="build-body reveal">
             <article>
@@ -547,6 +591,13 @@
             <li>Capture flows</li>
             <li>AI workflows</li>
           </ul>
+          <div class="build-receipts" role="region" aria-label="Life Hub Brain receipts">
+            <p class="build-receipts-label">Receipts</p>
+            <p>The repository and private memory stay private. The walkthrough covers the pgvector rebuild and retrieval model.</p>
+            <div class="build-receipt-links">
+              <a class="button button-primary" href="../#contact" data-umami-event="contact-open" data-umami-event-location="build-receipts" data-umami-event-build="brain">Request a walkthrough</a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -557,7 +608,7 @@
           These are systems that actually run, so I write about them the way I would write about any production environment: no hostnames, no network paths, no secrets, no private dashboards, and nothing that would make the lab easier to attack. The repositories behind these builds stay private for the same reason. The public story is the shape of the work, not the attack surface. The receipts exist: Git history, runbooks, postmortems, and live systems that can be queried on the spot. Ask, and I will walk you through them.
         </p>
         <div class="actions">
-          <a class="button button-primary" href="../#contact">Get in touch</a>
+          <a class="button button-primary" href="../#contact" data-umami-event="contact-open" data-umami-event-location="builds-close">Get in touch</a>
           <a class="button" href="../">Back to portfolio</a>
         </div>
       </section>
